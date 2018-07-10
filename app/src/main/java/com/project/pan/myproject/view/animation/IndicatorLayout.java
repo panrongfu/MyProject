@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 
 public class IndicatorLayout extends LinearLayout {
 
-    private PointView pointView;
+    private PointView pointView;//圆点
     private int itemSize;//item的个数
     private int currentItem;//当前item的位置
 
