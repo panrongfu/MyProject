@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_height="match_parent" >
+
+    <com.project.pan.myproject.view.animation.PointView
+        android:id="@+id/pointer_view"
+        android:layout_width="105dp"
+        app:pColor="@android:color/darker_gray"
+        app:pStretchColor="@color/colorPrimary"
+        android:layout_height="20dp" />
+
+    <Button
+        android:layout_marginTop="75dp"
+        android:id="@+id/button10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="clickStart"
+        android:text="动画开始" />
+
+    <Button
+        android:id="@+id/button11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="clickFinish"
+        android:text="动画结束" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:onClick="clickLoginButton"
+        android:text="loginbutton" />
+
+    <com.project.pan.myproject.view.animation.LoginView
+        android:id="@+id/hrz_login_btn"
+        android:layout_width="175dp"
+        app:lText="登录"
+        app:lTextSize="14sp"
+        app:lTextColor="@android:color/white"
+        app:lProgressColor="@android:color/white"
+        app:lBgColor="@color/colorPrimary"
+        app:lRadius="5dp"
+        android:layout_height="40dp" />
+</LinearLayout>

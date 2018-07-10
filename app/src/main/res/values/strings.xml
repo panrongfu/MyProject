@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Advanced</string>
+    <string name="title_activity_part_blur">PartBlurActivity</string>
+</resources>

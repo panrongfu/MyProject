@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.project.pan.myproject.onTouchEvent.MyRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.project.pan.myproject.onTouchEvent.MyTextView
+        android:id="@+id/myTextView"
+        android:layout_width="100dp"
+        android:layout_centerInParent="true"
+        android:background="@color/colorAccent"
+        android:layout_height="100dp" />
+</com.project.pan.myproject.onTouchEvent.MyRelativeLayout>

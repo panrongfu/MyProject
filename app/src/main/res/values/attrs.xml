@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<resources>  
+    <declare-styleable name="app">   
+        <attr name="textSize" format="dimension" /> 
+		<attr name="gravity">
+			<flag name="right" value="0x01" />
+			<flag name="left" value="0x02" />
+			<flag name="center" value="0x03" />
+		</attr>
+	</declare-styleable>
+	
+	<declare-styleable name="pointerView">
+        <attr name="pColor" format="color"/>
+        <attr name="pStretchColor" format="color"/>
+	</declare-styleable>
+
+    <declare-styleable name="loginView">
+        <attr name="lText" format="string"/>
+        <attr name="lTextSize" format="dimension"/>
+        <attr name="lTextColor" format="integer"/>
+        <attr name="lProgressColor" format="integer"/>
+        <attr name="lBgColor" format="integer"/>
+        <attr name="lRadius" format="dimension"/>
+    </declare-styleable>
+</resources>  
