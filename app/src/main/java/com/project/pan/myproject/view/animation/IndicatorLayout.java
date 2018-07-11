@@ -30,7 +30,7 @@ public class IndicatorLayout extends LinearLayout {
     }
 
     /**
-     * 初始化
+     * 初始化视图
      */
     private void initView(){
 
