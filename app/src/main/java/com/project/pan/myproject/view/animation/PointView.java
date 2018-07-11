@@ -32,9 +32,9 @@ import io.reactivex.functions.Consumer;
 
 
 /**
- * author: panrongfu
- * date:2018/7/9 12:48
- * describe: 自定义指示器小圆点，以控件的height为圆的直径，以控件的宽为拉伸的宽度
+ * @author: panrongfu
+ * @date: 2018/7/9 12:48
+ * @describe: 自定义指示器小圆点，以控件的height为圆的直径
  */
 
 public class PointView extends View {
@@ -42,12 +42,14 @@ public class PointView extends View {
     private static final int DEFAULT_COLOR = Color.WHITE;
     private static final int DEFAULT_STRETCH_COLOR = Color.YELLOW;
     private int pColor;
-    private int pStretchColor;//拉伸条的颜色
+    /**拉伸条的颜色*/
+    private int pStretchColor;
     private int pWidth;
     private int pHeight;
     private Paint mRectFPaint;
-    private Paint mPointPaint;//圆点的画笔
-    private boolean animationStart = false;
+    /**圆点的画笔*/
+    private Paint mPointPaint;
+    private boolean layoutStartStretch = false;
     private Disposable mDisposable;
 
     private RectF mRectF;
@@ -55,7 +57,13 @@ public class PointView extends View {
     private int mRectFRight;
     private int tempWidth=0;
 
-    private Paint testPaint;
+    private boolean layoutChange;
+
+    public PointView(Context context) {
+        super(context);
+        initView(context,null);
+    }
+
     public PointView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initView(context,attrs);
@@ -71,24 +79,42 @@ public class PointView extends View {
         TypedArray ta = mContext.obtainStyledAttributes(mAttrs,R.styleable.pointerView);
         pColor = ta.getColor(R.styleable.pointerView_pColor,DEFAULT_COLOR);
         pStretchColor = ta.getColor(R.styleable.pointerView_pStretchColor,DEFAULT_STRETCH_COLOR);
-        ta.recycle();//使用完之后回收
+        /*使用完之后回收*/
+        ta.recycle();
 
         mRectFPaint = new Paint();
         mPointPaint = new Paint();
     }
 
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+
+        /**获取控件的宽度*/
+        pWidth = getWidth();
+        /**获取控件的高度*/
+        pHeight =  getHeight();
+
+        Log.e("onLayout","pWidth:"+pix2dip(pWidth));
+    }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        pWidth = getWidth();//获取控件的宽度
-        pHeight =  getHeight();//获取控件的高度
-
+        //pWidth = getWidth();
+        Log.e("onMeasure","pWidth:"+pix2dip(pWidth));
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+        /**获取控件的宽度*/
+        pWidth = getWidth();
+        /**获取控件的高度*/
+        pHeight =  getHeight();
+        Log.e(">>>>>>","pWidth:"+pix2dip(pWidth));
+
         mRectFPaint.setStyle(Paint.Style.FILL);//充满
         mRectFPaint.setColor(pStretchColor);
         mRectFPaint.setAntiAlias(true);// 设置画笔的抗锯齿效果
@@ -97,8 +123,14 @@ public class PointView extends View {
         mPointPaint.setColor(pColor);
         mPointPaint.setAntiAlias(true);// 设置画笔的抗锯齿效果
 
-        if(animationStart){//动画开始才绘制
-            Log.e("onDraw-my","pHeight:"+ pHeight+"   pWidth:"+pWidth+"  mRectFLeft:"+mRectFLeft+"   mRectFRight:"+mRectFRight);
+
+        if(layoutStartStretch){//动画开始才绘制
+            /*当布局大小改变的时候调用*/
+            if(layoutChange){
+                startStretch(2);
+                layoutChange = false;
+            }
+            Log.e("onDraw-my","pHeight:"+ pix2dip(pHeight)+"   pWidth:"+pix2dip(pWidth)+"  mRectFLeft:"+pix2dip(mRectFLeft)+"   mRectFRight:"+pix2dip(mRectFRight));
             mRectF = new RectF(mRectFLeft,0,mRectFRight,pHeight);//绘制矩形
             canvas.drawRoundRect(mRectF,0,0,mRectFPaint);
             canvas.drawCircle(mRectFLeft,pHeight/2,pHeight/2,mRectFPaint);//在左边矩形画个圆
@@ -108,43 +140,52 @@ public class PointView extends View {
         }
     }
 
+
+    public boolean isLayoutStartStretch() {
+        return layoutStartStretch;
+    }
+
+    public void setLayoutStartStretch(boolean layoutStartStretch) {
+        this.layoutStartStretch = layoutStartStretch;
+    }
+
+    public boolean isLayoutChange() {
+        return layoutChange;
+    }
+
+    public void setLayoutChange(boolean layoutChange) {
+        this.layoutChange = layoutChange;
+    }
+
     /**
      * 开始拉伸
      * @param milliseconds
      */
     public void startStretch(int milliseconds){
-        animationStart = true;
         mRectFLeft = mRectFRight = pWidth/2;
+        Log.e("startStretch","  mRectFLeft:"+pix2dip(mRectFLeft)+"   mRectFRight:"+pix2dip(mRectFRight));
         mDisposable = Flowable.interval(milliseconds, TimeUnit.MILLISECONDS)
-                .doOnNext(new Consumer<Long>() {
-                    @Override
-                    public void accept(@NonNull Long aLong) throws Exception {
-                       // Log.e("Switcher", "accept: accept : "+aLong );
-                    }
-                })
+                .doOnNext(aLong -> {})
                 .onBackpressureDrop()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Long>() {
-                    @Override
-                    public void accept(@NonNull Long aLong) throws Exception {
-                        invalidate();
-                        tempWidth ++;//这里循环+1是为了取余，从而达到mRectFLeft 和 mRectFRight 都有数值变化的目的
-                        if(tempWidth%2==0){
-                            //当mRectFLeft 小于圆的半径 或者刚好等于圆的半径则停止拉伸
-                            if(mRectFLeft < pHeight/2 || mRectFLeft == pHeight/2){
-                                mRectFLeft = pHeight/2;
-                                stretchStop();
-                            }
-                            mRectFLeft--;
-                        }else {
-                            //当mRectFRight的位置超过了pWidth - pHeight/2的值（即右边留出的部分已经不够绘制半圆了）
-                            //或是刚好等于pWidth - pHeight/2 则停止拉伸
-                            if(mRectFRight > pWidth - pHeight/2 || mRectFRight == pWidth - pHeight/2){
-                                mRectFRight = pWidth - pHeight/2;
-                                stretchStop();
-                            }
-                            mRectFRight++;
+                .subscribe(aLong -> {
+                    invalidate();
+                    tempWidth ++;//这里循环+1是为了取余，从而达到mRectFLeft 和 mRectFRight 都有数值变化的目的
+                    if(tempWidth%2==0){
+                        //当mRectFLeft 小于圆的半径 或者刚好等于圆的半径则停止拉伸
+                        if(mRectFLeft < pHeight/2 || mRectFLeft == pHeight/2){
+                            mRectFLeft = pHeight/2;
+                            stretchStop();
                         }
+                        mRectFLeft--;
+                    }else {
+                        //当mRectFRight的位置超过了pWidth - pHeight/2的值（即右边留出的部分已经不够绘制半圆了）
+                        //或是刚好等于pWidth - pHeight/2 则停止拉伸
+                        if(mRectFRight > pWidth - pHeight/2 || mRectFRight == pWidth - pHeight/2){
+                            mRectFRight = pWidth - pHeight/2;
+                            stretchStop();
+                        }
+                        mRectFRight++;
                     }
                 });
     }
@@ -187,7 +228,7 @@ public class PointView extends View {
      * 回缩停止
      */
     private void compressStop() {
-        animationStart = false;
+        layoutStartStretch = false;
         invalidate();
         if(mDisposable!=null&&!mDisposable.isDisposed()){
             mDisposable.dispose();

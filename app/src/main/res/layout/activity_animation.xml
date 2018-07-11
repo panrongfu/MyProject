@@ -6,12 +6,12 @@
     android:orientation="vertical"
     android:layout_height="match_parent" >
 
-    <com.project.pan.myproject.view.animation.PointView
-        android:id="@+id/pointer_view"
-        android:layout_width="105dp"
-        app:pColor="@android:color/darker_gray"
-        app:pStretchColor="@color/colorPrimary"
-        android:layout_height="20dp" />
+    <!--<com.project.pan.myproject.view.animation.PointView-->
+        <!--android:id="@+id/pointer_view"-->
+        <!--android:layout_width="105dp"-->
+        <!--app:pColor="@android:color/darker_gray"-->
+        <!--app:pStretchColor="@color/colorPrimary"-->
+        <!--android:layout_height="20dp" />-->
 
     <Button
         android:layout_marginTop="75dp"
@@ -35,14 +35,29 @@
         android:onClick="clickLoginButton"
         android:text="loginbutton" />
 
-    <com.project.pan.myproject.view.animation.LoginView
-        android:id="@+id/hrz_login_btn"
-        android:layout_width="175dp"
-        app:lText="登录"
-        app:lTextSize="14sp"
-        app:lTextColor="@android:color/white"
-        app:lProgressColor="@android:color/white"
-        app:lBgColor="@color/colorPrimary"
-        app:lRadius="5dp"
-        android:layout_height="40dp" />
+    <!--<com.project.pan.myproject.view.animation.LoginView-->
+        <!--android:id="@+id/hrz_login_btn"-->
+        <!--android:layout_width="175dp"-->
+        <!--app:lText="登录"-->
+        <!--app:lTextSize="14sp"-->
+        <!--app:lTextColor="@android:color/white"-->
+        <!--app:lProgressColor="@android:color/white"-->
+        <!--app:lBgColor="@color/colorPrimary"-->
+        <!--app:lRadius="5dp"-->
+        <!--android:layout_height="40dp" />-->
+
+
+    <com.project.pan.myproject.view.animation.IndicatorLayout
+        android:layout_marginTop="15dp"
+        android:id="@+id/indicatorLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/button12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="clickNextPoint"
+        android:text="下一个圆点" />
+
 </LinearLayout>
