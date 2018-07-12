@@ -50,6 +50,9 @@
     <com.project.pan.myproject.view.animation.IndicatorLayout
         android:layout_marginTop="15dp"
         android:id="@+id/indicatorLayout"
+        app:pointSize="4dp"
+        app:pointSelectedColor="@android:color/holo_red_light"
+        app:pointUnSelectedColor="@android:color/holo_blue_bright"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

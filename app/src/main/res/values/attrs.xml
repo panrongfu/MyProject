@@ -22,4 +22,11 @@
         <attr name="lBgColor" format="integer"/>
         <attr name="lRadius" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="indicatorLayout">
+
+        <attr name="pointSize" format="dimension"/>
+        <attr name="pointSelectedColor" format="color"/>
+        <attr name="pointUnSelectedColor" format="color"/>
+    </declare-styleable>
 </resources>  

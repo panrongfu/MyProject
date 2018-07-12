@@ -50,6 +50,7 @@ public class PointView extends View {
     /**圆点的画笔*/
     private Paint mPointPaint;
     private boolean layoutStartStretch = false;
+    private boolean layoutStartCompress = false;
     private Disposable mDisposable;
 
     private RectF mRectF;
@@ -133,9 +134,9 @@ public class PointView extends View {
             Log.e("onDraw-my","pHeight:"+ pix2dip(pHeight)+"   pWidth:"+pix2dip(pWidth)+"  mRectFLeft:"+pix2dip(mRectFLeft)+"   mRectFRight:"+pix2dip(mRectFRight));
             mRectF = new RectF(mRectFLeft,0,mRectFRight,pHeight);//绘制矩形
             canvas.drawRoundRect(mRectF,0,0,mRectFPaint);
-            canvas.drawCircle(mRectFLeft,pHeight/2,pHeight/2,mRectFPaint);//在左边矩形画个圆
-            canvas.drawCircle(mRectFRight,pHeight/2,pHeight/2,mRectFPaint);//在右矩形边上画个圆
-        }else {//若没有开启动画，则默认显示一个原点
+            canvas.drawCircle(mRectFLeft+1,pHeight/2,pHeight/2,mRectFPaint);//在左边矩形画个圆
+            canvas.drawCircle(mRectFRight-1,pHeight/2,pHeight/2,mRectFPaint);//在右矩形边上画个圆
+        }else {
             canvas.drawCircle(pWidth/2,pHeight/2,pHeight/2,mPointPaint);//在左边矩形画个圆
         }
     }
@@ -147,6 +148,14 @@ public class PointView extends View {
 
     public void setLayoutStartStretch(boolean layoutStartStretch) {
         this.layoutStartStretch = layoutStartStretch;
+    }
+
+    public boolean isLayoutStartCompress() {
+        return layoutStartCompress;
+    }
+
+    public void setLayoutStartCompress(boolean layoutStartCompress) {
+        this.layoutStartCompress = layoutStartCompress;
     }
 
     public boolean isLayoutChange() {
@@ -169,7 +178,6 @@ public class PointView extends View {
                 .onBackpressureDrop()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> {
-                    invalidate();
                     tempWidth ++;//这里循环+1是为了取余，从而达到mRectFLeft 和 mRectFRight 都有数值变化的目的
                     if(tempWidth%2==0){
                         //当mRectFLeft 小于圆的半径 或者刚好等于圆的半径则停止拉伸
@@ -187,6 +195,7 @@ public class PointView extends View {
                         }
                         mRectFRight++;
                     }
+                    invalidate();
                 });
     }
 
@@ -195,31 +204,24 @@ public class PointView extends View {
      * @param milliseconds
      */
     public void startCompress(int milliseconds){
-        mDisposable = Flowable.interval(milliseconds, TimeUnit.MILLISECONDS)
-                .doOnNext(new Consumer<Long>() {
-                    @Override
-                    public void accept(@NonNull Long aLong) throws Exception {
 
-                    }
-                })
+        mDisposable = Flowable.interval(milliseconds, TimeUnit.MILLISECONDS)
+                .doOnNext(aLong -> {})
                 .onBackpressureDrop()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Long>() {
-                    @Override
-                    public void accept(@NonNull Long aLong) throws Exception {
-                        invalidate();
-                        mRectFLeft++;//每隔 milliseconds 左边矩形距离left加1
-                        if(pWidth/2-mRectFLeft>pHeight/2
-                                ||pWidth/2 -mRectFLeft == pHeight/2){
-                            mRectFLeft = pWidth/2-pHeight/2;
-                            compressStop();
-                        }
+                .subscribe(aLong -> {
+                    invalidate();
+                    mRectFLeft+=2;//每隔 milliseconds 左边矩形距离left加1
+                    if(pWidth/2-mRectFLeft>pHeight/2
+                            ||pWidth/2 -mRectFLeft == pHeight/2){
+                        mRectFLeft = pWidth/2-pHeight/2;
+                        compressStop();
+                    }
 
-                        mRectFRight--;//每隔 milliseconds 右边矩形right加1
-                        if(mRectFRight < pWidth/2+pHeight/2 || mRectFRight == pWidth/2+pHeight/2){
-                            mRectFRight = pWidth/2+pHeight/2;
-                            compressStop();
-                        }
+                    mRectFRight-=2;//每隔 milliseconds 右边矩形right加1
+                    if(mRectFRight < pWidth/2+pHeight/2 || mRectFRight == pWidth/2+pHeight/2){
+                        mRectFRight = pWidth/2+pHeight/2;
+                        compressStop();
                     }
                 });
     }
@@ -255,5 +257,13 @@ public class PointView extends View {
     public  int pix2dip(float pix) {
         final float densityDpi = getResources().getDisplayMetrics().density;
         return (int) (pix / densityDpi + 0.5f);
+    }
+
+    public void setpColor(int pColor) {
+        this.pColor = pColor;
+    }
+
+    public void setpStretchColor(int pStretchColor) {
+        this.pStretchColor = pStretchColor;
     }
 }

@@ -1,12 +1,16 @@
 package com.project.pan.myproject.view.animation;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.project.pan.myproject.R;
+
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +22,9 @@ import java.util.List;
 
 public class IndicatorLayout extends LinearLayout {
 
+    private int DEFAULT_POINT_SIZE = 5;
+    private int DEFAULT_UNSELECTED_COLOR = Color.WHITE;
+    private int DEFAULT_SELECTED_COLOR = Color.RED;
 
     /**带动画的小圆点*/
     private PointView pointView;
@@ -28,30 +35,41 @@ public class IndicatorLayout extends LinearLayout {
     /**上一个圆点的位置*/
     private int lastItemPosition=0;
 
+    private int pointSize;
+    private int unSelectedColor;
+    private int selectedColor;
+
     private List<PointView>  pointList = new ArrayList();
 
     public IndicatorLayout(Context context) {
         super(context);
-        initView();
+        initView(null);
     }
 
     public IndicatorLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        initView();
+        initView(attrs);
     }
 
     public IndicatorLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initView();
+        initView(attrs);
     }
 
     /**
      * 初始化视图
+     * @param attrs
      */
-    private void initView(){
+    private void initView(AttributeSet attrs){
         setGravity(Gravity.CENTER);
         setOrientation(HORIZONTAL);
+        TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.indicatorLayout);
 
+        pointSize = (int) ta.getDimension(R.styleable.indicatorLayout_pointSize,DEFAULT_POINT_SIZE);
+        unSelectedColor = ta.getColor(R.styleable.indicatorLayout_pointUnSelectedColor,DEFAULT_UNSELECTED_COLOR);
+        selectedColor = ta.getColor(R.styleable.indicatorLayout_pointSelectedColor,DEFAULT_SELECTED_COLOR);
+
+        ta.recycle();
     }
 
     /**
@@ -76,9 +94,11 @@ public class IndicatorLayout extends LinearLayout {
         for(int i = 0; i < itemSize; i++){
             /*创建圆点对象*/
             PointView pointView = new PointView(getContext());
+            pointView.setpColor(unSelectedColor);//未选中圆点的颜色
+            pointView.setpStretchColor(selectedColor);//选中圆点的颜色
             /*设置属性*/
-            LayoutParams params = new LayoutParams(dip2px(10), dip2px(10));
-            params.leftMargin = dip2px(5);
+            LayoutParams params = new LayoutParams(pointSize, pointSize);
+            params.leftMargin = pointSize;
             pointView.setLayoutParams(params);
             /*添加到LinearLayout*/
             addView(pointView);
@@ -102,24 +122,26 @@ public class IndicatorLayout extends LinearLayout {
     public void setCurrentItemPosition(int currentPosition) {
         this.currentItemPosition = currentPosition;
         PointView currentPoint = pointList.get(currentPosition);
-        LayoutParams params = new LayoutParams(dip2px(20), dip2px(10));
-        params.leftMargin = dip2px(5);
+        LayoutParams params = new LayoutParams(pointSize*3, pointSize);
+        params.leftMargin = pointSize;
         currentPoint.setLayoutParams(params);
         currentPoint.setLayoutStartStretch(true);
         currentPoint.setLayoutChange(true);
-      //  currentPoint.startStretch(2);
+
         /**
          * 如果当前的圆点跟上一个圆点位置相同 上个圆点跟当前圆点是同一个
          * 如果当前的圆点位置跟上一个圆点位置不相同，则需要获取上个圆点，还原动画
          */
         if(lastItemPosition != currentPosition){
             PointView lastPoint = pointList.get(lastItemPosition);
-            LayoutParams paramsLastPoint = new LayoutParams(dip2px(10), dip2px(10));
-            paramsLastPoint.leftMargin = dip2px(5);
+            LayoutParams paramsLastPoint = new LayoutParams(pointSize, pointSize);
+            paramsLastPoint.leftMargin = pointSize;
             lastPoint.setLayoutParams(paramsLastPoint);
-            lastPoint.startCompress(2);
+            lastPoint.setLayoutStartStretch(false);
+           // lastPoint.setLayoutStartCompress(true);
+           // lastPoint.startCompress(1);
         }
-        /*把当前圆点位置保存起来与下个圆点的位置对比*/
+        //把当前圆点位置保存起来与下个圆点的位置对比
         lastItemPosition = currentPosition;
         
     }
