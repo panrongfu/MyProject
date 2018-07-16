@@ -26,6 +26,7 @@
     <declare-styleable name="indicatorLayout">
 
         <attr name="pointSize" format="dimension"/>
+        <attr name="pointSelectedWidth" format="dimension"/>
         <attr name="pointSelectedColor" format="color"/>
         <attr name="pointUnSelectedColor" format="color"/>
     </declare-styleable>

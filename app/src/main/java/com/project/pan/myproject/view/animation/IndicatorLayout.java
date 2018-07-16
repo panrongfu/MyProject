@@ -22,7 +22,8 @@ import java.util.List;
 
 public class IndicatorLayout extends LinearLayout {
 
-    private int DEFAULT_POINT_SIZE = 5;
+    private int DEFAULT_POINT_SIZE = 4;
+    private int DEFAULT_SELECTED_WIDTH = 10;
     private int DEFAULT_UNSELECTED_COLOR = Color.WHITE;
     private int DEFAULT_SELECTED_COLOR = Color.RED;
 
@@ -36,6 +37,7 @@ public class IndicatorLayout extends LinearLayout {
     private int lastItemPosition=0;
 
     private int pointSize;
+    private int pointSelectedWidth;
     private int unSelectedColor;
     private int selectedColor;
 
@@ -66,6 +68,7 @@ public class IndicatorLayout extends LinearLayout {
         TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.indicatorLayout);
 
         pointSize = (int) ta.getDimension(R.styleable.indicatorLayout_pointSize,DEFAULT_POINT_SIZE);
+        pointSelectedWidth = (int) ta.getDimension(R.styleable.indicatorLayout_pointSelectedWidth,DEFAULT_SELECTED_WIDTH);
         unSelectedColor = ta.getColor(R.styleable.indicatorLayout_pointUnSelectedColor,DEFAULT_UNSELECTED_COLOR);
         selectedColor = ta.getColor(R.styleable.indicatorLayout_pointSelectedColor,DEFAULT_SELECTED_COLOR);
 
@@ -122,7 +125,7 @@ public class IndicatorLayout extends LinearLayout {
     public void setCurrentItemPosition(int currentPosition) {
         this.currentItemPosition = currentPosition;
         PointView currentPoint = pointList.get(currentPosition);
-        LayoutParams params = new LayoutParams(pointSize*3, pointSize);
+        LayoutParams params = new LayoutParams(pointSelectedWidth, pointSize);
         params.leftMargin = pointSize;
         currentPoint.setLayoutParams(params);
         currentPoint.setLayoutStartStretch(true);

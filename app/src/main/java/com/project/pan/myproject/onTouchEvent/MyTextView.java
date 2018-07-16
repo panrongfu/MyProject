@@ -46,6 +46,7 @@ public class MyTextView extends TextView {
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         switch (event.getAction()){
+
             case MotionEvent.ACTION_DOWN:
                 Log.d(MyTextView,"dispatchTouchEvent:"+"ACTION_DOWN");
                 break;

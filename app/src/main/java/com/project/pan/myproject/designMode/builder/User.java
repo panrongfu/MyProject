@@ -99,8 +99,9 @@ public class User {
             this.address = address;
             return this;
         }
-
-        public User bulid(){
+        //通过这个方法，把设置进来的值，都存放在builder中，再传到user的构造方法中
+        //解析builder对象获取各个属性值，再赋值给user
+        public User build(){
             return new User(this);
         }
     }

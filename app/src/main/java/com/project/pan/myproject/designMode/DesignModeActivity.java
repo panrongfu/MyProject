@@ -32,7 +32,7 @@ public class DesignModeActivity extends AppCompatActivity {
               .setAge(12)
               .setPhone("158754411")
               .setName("蜡笔小新")
-              .bulid();
+              .build();
 
       Toast.makeText(this,user.toString(),Toast.LENGTH_LONG).show();
 
