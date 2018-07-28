@@ -38,27 +38,37 @@ import io.reactivex.functions.Consumer;
  */
 
 public class PointView extends View {
-
+    /**默认圆点的默认颜色*/
     private static final int DEFAULT_COLOR = Color.WHITE;
+    /**拉伸圆点的默认颜色*/
     private static final int DEFAULT_STRETCH_COLOR = Color.YELLOW;
+    /**圆点颜色*/
     private int pColor;
     /**拉伸条的颜色*/
     private int pStretchColor;
+    /**圆点宽度*/
     private int pWidth;
+    /**圆点高度*/
     private int pHeight;
+    /**矩形画笔*/
     private Paint mRectFPaint;
     /**圆点的画笔*/
     private Paint mPointPaint;
+    /**矩形*/
+    private RectF mRectF;
+    /**矩形的左边距*/
+    private int mRectFLeft;
+    /**矩形的右边距*/
+    private int mRectFRight;
+    /**用来缓存宽度*/
+    private int tempWidth=0;
+    /**布局大小位置发生改变*/
+    private boolean layoutChange;
+    /**是否开始拉伸*/
     private boolean layoutStartStretch = false;
+    /**是否开始收缩*/
     private boolean layoutStartCompress = false;
     private Disposable mDisposable;
-
-    private RectF mRectF;
-    private int mRectFLeft;
-    private int mRectFRight;
-    private int tempWidth=0;
-
-    private boolean layoutChange;
 
     public PointView(Context context) {
         super(context);
@@ -76,13 +86,11 @@ public class PointView extends View {
     }
 
     private void initView(Context mContext, AttributeSet mAttrs) {
-
         TypedArray ta = mContext.obtainStyledAttributes(mAttrs,R.styleable.pointerView);
         pColor = ta.getColor(R.styleable.pointerView_pColor,DEFAULT_COLOR);
         pStretchColor = ta.getColor(R.styleable.pointerView_pStretchColor,DEFAULT_STRETCH_COLOR);
         /*使用完之后回收*/
         ta.recycle();
-
         mRectFPaint = new Paint();
         mPointPaint = new Paint();
     }
@@ -90,57 +98,50 @@ public class PointView extends View {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-
-        /**获取控件的宽度*/
+        //获取控件的宽度
         pWidth = getWidth();
-        /**获取控件的高度*/
+        //获取控件的高度
         pHeight =  getHeight();
-
-        Log.e("onLayout","pWidth:"+pix2dip(pWidth));
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        //pWidth = getWidth();
-        Log.e("onMeasure","pWidth:"+pix2dip(pWidth));
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        /**获取控件的宽度*/
+        //获取控件的宽度
         pWidth = getWidth();
-        /**获取控件的高度*/
+        //获取控件的高度
         pHeight =  getHeight();
-        Log.e(">>>>>>","pWidth:"+pix2dip(pWidth));
-
-        mRectFPaint.setStyle(Paint.Style.FILL);//充满
+        //充满
+        mRectFPaint.setStyle(Paint.Style.FILL);
         mRectFPaint.setColor(pStretchColor);
-        mRectFPaint.setAntiAlias(true);// 设置画笔的抗锯齿效果
-
-        mPointPaint.setStyle(Paint.Style.FILL);//充满
+        //设置画笔的抗锯齿效果
+        mRectFPaint.setAntiAlias(true);
+        //充满
+        mPointPaint.setStyle(Paint.Style.FILL);
         mPointPaint.setColor(pColor);
-        mPointPaint.setAntiAlias(true);// 设置画笔的抗锯齿效果
-
-
-        if(layoutStartStretch){//动画开始才绘制
+        //设置画笔的抗锯齿效果
+        mPointPaint.setAntiAlias(true);
+        //动画开始才绘制
+        if(layoutStartStretch){
             /*当布局大小改变的时候调用*/
             if(layoutChange){
                 startStretch(2);
                 layoutChange = false;
             }
             Log.e("onDraw-my","pHeight:"+ pix2dip(pHeight)+"   pWidth:"+pix2dip(pWidth)+"  mRectFLeft:"+pix2dip(mRectFLeft)+"   mRectFRight:"+pix2dip(mRectFRight));
-            mRectF = new RectF(mRectFLeft,0,mRectFRight,pHeight);//绘制矩形
+            //绘制矩形
+            mRectF = new RectF(mRectFLeft,0,mRectFRight,pHeight);
             canvas.drawRoundRect(mRectF,0,0,mRectFPaint);
-            canvas.drawCircle(mRectFLeft+1,pHeight/2,pHeight/2,mRectFPaint);//在左边矩形画个圆
-            canvas.drawCircle(mRectFRight-1,pHeight/2,pHeight/2,mRectFPaint);//在右矩形边上画个圆
+            //在左边矩形画个圆
+            canvas.drawCircle(mRectFLeft+1,pHeight/2,pHeight/2,mRectFPaint);
+            //在右矩形边上画个圆
+            canvas.drawCircle(mRectFRight-1,pHeight/2,pHeight/2,mRectFPaint);
         }else {
-            canvas.drawCircle(pWidth/2,pHeight/2,pHeight/2,mPointPaint);//在左边矩形画个圆
+            //在左边矩形画个圆
+            canvas.drawCircle(pWidth/2,pHeight/2,pHeight/2,mPointPaint);
         }
     }
-
 
     public boolean isLayoutStartStretch() {
         return layoutStartStretch;
@@ -149,7 +150,6 @@ public class PointView extends View {
     public void setLayoutStartStretch(boolean layoutStartStretch) {
         this.layoutStartStretch = layoutStartStretch;
     }
-
     public boolean isLayoutStartCompress() {
         return layoutStartCompress;
     }
@@ -211,14 +211,15 @@ public class PointView extends View {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> {
                     invalidate();
-                    mRectFLeft+=2;//每隔 milliseconds 左边矩形距离left加1
+                    //每隔 milliseconds 左边矩形距离left加1
+                    mRectFLeft+=2;
                     if(pWidth/2-mRectFLeft>pHeight/2
                             ||pWidth/2 -mRectFLeft == pHeight/2){
                         mRectFLeft = pWidth/2-pHeight/2;
                         compressStop();
                     }
-
-                    mRectFRight-=2;//每隔 milliseconds 右边矩形right加1
+                    //每隔 milliseconds 右边矩形right加1
+                    mRectFRight-=2;
                     if(mRectFRight < pWidth/2+pHeight/2 || mRectFRight == pWidth/2+pHeight/2){
                         mRectFRight = pWidth/2+pHeight/2;
                         compressStop();

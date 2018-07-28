@@ -4,9 +4,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.system.ErrnoException;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -14,8 +13,8 @@ import com.project.pan.myproject.dagger2.DaggerActivity;
 import com.project.pan.myproject.designMode.DesignModeActivity;
 import com.project.pan.myproject.observer.ObserverActivity;
 import com.project.pan.myproject.onTouchEvent.OnTouchEventActivity;
-import com.project.pan.myproject.view.animation.AnimationActivity;
 import com.project.pan.myproject.view.ViewStubActivity;
+import com.project.pan.myproject.view.animation.AnimationActivity;
 import com.project.pan.myproject.view.textSwithcer.TextSwitcherActivity;
 
 
@@ -65,8 +64,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickAnimation(View view){
+
         startActivity(new Intent(this, AnimationActivity.class));
     }
+
 
 
 }

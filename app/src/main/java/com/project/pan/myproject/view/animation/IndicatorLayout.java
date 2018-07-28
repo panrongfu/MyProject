@@ -141,8 +141,6 @@ public class IndicatorLayout extends LinearLayout {
             paramsLastPoint.leftMargin = pointSize;
             lastPoint.setLayoutParams(paramsLastPoint);
             lastPoint.setLayoutStartStretch(false);
-           // lastPoint.setLayoutStartCompress(true);
-           // lastPoint.startCompress(1);
         }
         //把当前圆点位置保存起来与下个圆点的位置对比
         lastItemPosition = currentPosition;

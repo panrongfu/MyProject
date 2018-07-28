@@ -33,7 +33,14 @@
             android:exported="false" />
 
         <activity android:name=".classLoader.ClassLoaderActivity" />
-        <activity android:name=".view.animation.AnimationActivity"/>
+        <activity android:name=".view.animation.AnimationActivity" />
+
+        <service
+            android:name=".ipc.AidlService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".ipc.AidlActivity"></activity>
     </application>
 
 </manifest>
