@@ -10,10 +10,8 @@ import android.os.Parcelable;
  */
 
 public class Book implements Parcelable {
-    String author;
-    String price;
-
-
+    public String author;
+    public String price;
     @Override
     public int describeContents() {
         return 0;

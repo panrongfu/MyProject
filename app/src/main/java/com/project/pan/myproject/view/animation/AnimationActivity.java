@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.project.pan.myproject.R;
+import com.project.pan.myproject.view.progress.CircleProgress;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,6 +24,10 @@ public class AnimationActivity extends AppCompatActivity {
 
     private IndicatorLayout indicatorLayout;
     int  position= 0;
+    int sweepAngle = 120;
+    int totalClass = 3;
+    int currentClass  = 0;
+    private CircleProgress circleProgress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +39,8 @@ public class AnimationActivity extends AppCompatActivity {
 
         indicatorLayout = findViewById(R.id.indicatorLayout);
         indicatorLayout.setItemSize(5);
+
+        circleProgress = findViewById(R.id.circleProgress);
 
 //        Observable.interval(5, TimeUnit.MICROSECONDS)
 //                .subscribeOn(Schedulers.io())
@@ -49,6 +56,14 @@ public class AnimationActivity extends AppCompatActivity {
 //                    }
 //                });
 
+    }
+
+    public void clickCircleProgress(View view){
+        currentClass+=1;
+        float everyClassOccupyAngle = 360/totalClass+2;
+        float currentTotalOccupyAngle = currentClass*everyClassOccupyAngle;
+        circleProgress.sweepAngle(currentTotalOccupyAngle);
+        circleProgress.setProgressText(currentClass+"/"+totalClass);
     }
 
     public void clickNextPoint(View view){

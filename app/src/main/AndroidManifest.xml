@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.project.pan.myproject">
 
+    <permission
+        android:name="com.project.pan.myproject.permission.ACCESS_BOOK_SERVER"
+        android:protectionLevel="normal" />
+
     <application
         android:name=".BaseApplication"
         android:allowBackup="true"
@@ -40,7 +44,26 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".ipc.AidlActivity"></activity>
+        <activity android:name=".ipc.IpcActivity" />
+
+        <service
+            android:name=".ipc.MyIntentService"
+            android:exported="false" />
+        <service
+            android:name=".ipc.MessengerService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <provider
+            android:name=".ipc.provider.BookProvider"
+            android:authorities="com.project.pan.myproject.book.provider"
+            android:permission="com.project.pan.myproject.BookProvider"
+            android:process=":provider" />
+
+        <service
+            android:name=".ipc.socket.TcpServerService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
