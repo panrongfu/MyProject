@@ -30,4 +30,14 @@
         <attr name="pointSelectedColor" format="color"/>
         <attr name="pointUnSelectedColor" format="color"/>
     </declare-styleable>
+
+    <declare-styleable name="CircleProgress">
+        <attr name="progressTextColor" format="color"/>
+        <attr name="inCircleColor" format="color"/>
+        <attr name="outCircleColor" format="color"/>
+        <attr name="outCircleStrokeWidth" format="dimension"/>
+        <attr name="outCircleStartColor" format="color"/>
+        <attr name="outCircleEndColor" format="color"/>
+        <attr name="progressTextSize" format="dimension"/>
+    </declare-styleable>
 </resources>  
