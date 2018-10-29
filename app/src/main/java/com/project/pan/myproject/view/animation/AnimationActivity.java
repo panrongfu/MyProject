@@ -1,9 +1,16 @@
 package com.project.pan.myproject.view.animation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
+import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.animation.TypeEvaluator;
+import com.nineoldandroids.animation.ValueAnimator;
 import com.project.pan.myproject.R;
 import com.project.pan.myproject.view.progress.CircleProgress;
 
@@ -78,6 +85,11 @@ public class AnimationActivity extends AppCompatActivity {
     public void clickStart (View view){
 
        // pointView.startStretch(1);
+
+//        LottieAnimationView animationView = (LottieAnimationView) findViewById(R.id.animation_view);
+//        animationView.setAnimation("data.json");
+//        animationView.loop(true);
+//        animationView.playAnimation();
     }
 
     public void clickFinish(View view){
@@ -89,5 +101,12 @@ public class AnimationActivity extends AppCompatActivity {
       //  loginView.startStretch(1);
     }
 
+    public void clickAnimation(View view){
 
+    }
+
+
+    public void clickEvaluator(View view){
+        startActivity(new Intent(this,EvaluatorActivity.class));
+    }
 }

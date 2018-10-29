@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Scroller;
 
+import com.nineoldandroids.view.ViewHelper;
 import com.project.pan.myproject.R;
 
 
@@ -45,6 +47,7 @@ public class OnTouchEventActivity2 extends AppCompatActivity implements View.OnT
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.myTextView:
+
                 Log.d("myTextView","onClick");
                 break;
         }

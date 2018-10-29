@@ -5,63 +5,91 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:text="事件传递"
-        android:onClick="onTouchDispatch"
-        android:layout_width="match_parent"
-        android:layout_height="45dp" />
+ <ScrollView
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:orientation="vertical"
+         android:layout_height="match_parent">
+         <Button
+             android:text="事件传递"
+             android:onClick="onTouchDispatch"
+             android:layout_width="match_parent"
+             android:layout_height="45dp" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="clickObserver"
-        android:text="观察者模式"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="16dp" />
+         <Button
+             android:id="@+id/button2"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:onClick="clickObserver"
+             android:text="观察者模式"
+             tools:layout_editor_absoluteX="31dp"
+             tools:layout_editor_absoluteY="16dp" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="clickDagger"
-        android:text="dagger" />
+         <Button
+             android:id="@+id/button3"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:onClick="clickDagger"
+             android:text="dagger" />
 
-    <Button
-        android:layout_width="99dp"
-        android:layout_height="wrap_content"
-        android:onClick="clickViewStub"
-        android:text="ViewStub" />
+         <Button
+             android:layout_width="99dp"
+             android:layout_height="wrap_content"
+             android:onClick="clickViewStub"
+             android:text="ViewStub" />
 
-    <Button
-        android:layout_width="104dp"
-        android:layout_height="wrap_content"
-        android:onClick="clickSwitcher"
-        android:text="TextViewSwitcher" />
+         <Button
+             android:layout_width="104dp"
+             android:layout_height="wrap_content"
+             android:onClick="clickSwitcher"
+             android:text="TextViewSwitcher" />
 
-    <Button
-        android:id="@+id/button7"
-        android:layout_width="107dp"
-        android:layout_height="wrap_content"
-        android:onClick="clickDesignMode"
-        android:text="设计模式" />
+         <Button
+             android:id="@+id/button7"
+             android:layout_width="107dp"
+             android:layout_height="wrap_content"
+             android:onClick="clickDesignMode"
+             android:text="设计模式" />
 
-    <Button
-        android:id="@+id/button8"
-        android:layout_width="122dp"
-        android:layout_height="wrap_content"
-        android:onClick="clickBlur"
-        android:text="Blur" />
+         <Button
+             android:id="@+id/button8"
+             android:layout_width="122dp"
+             android:layout_height="wrap_content"
+             android:onClick="clickBlur"
+             android:text="Blur" />
 
-    <Button
-        android:id="@+id/button9"
-        android:layout_width="122dp"
-        android:layout_height="wrap_content"
-        android:onClick="clickAnimation"
-        android:text="Animation" />
+         <Button
+             android:id="@+id/button9"
+             android:layout_width="122dp"
+             android:layout_height="wrap_content"
+             android:onClick="clickAnimation"
+             android:text="Animation" />
 
-    <ImageView
-        android:id="@+id/iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+         <ImageView
+             android:id="@+id/iv"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+
+         <Button
+             android:id="@+id/button20"
+             android:layout_width="136dp"
+             android:layout_height="wrap_content"
+             android:onClick="customViewClick"
+             android:text="CustomView" />
+
+         <Button
+             android:layout_width="140dp"
+             android:layout_height="wrap_content"
+             android:onClick="clickWindow"
+             android:text="Window" />
+
+         <Button
+             android:layout_width="138dp"
+             android:onClick="cacheClick"
+             android:layout_height="wrap_content"
+             android:text="cache" />
+     </LinearLayout>
+ </ScrollView>
 </LinearLayout>

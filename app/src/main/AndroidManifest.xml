@@ -5,6 +5,7 @@
     <permission
         android:name="com.project.pan.myproject.permission.ACCESS_BOOK_SERVER"
         android:protectionLevel="normal" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".BaseApplication"
@@ -26,6 +27,7 @@
         <activity android:name=".observer.ObserverActivity" />
         <activity android:name=".dagger2.DaggerActivity" />
         <activity android:name=".view.ViewStubActivity" />
+        <activity android:name=".view.custom.CustomViewActivity" />
         <activity
             android:name=".view.textSwithcer.TextSwitcherActivity"
             android:theme="@style/AppTheme" />
@@ -63,7 +65,16 @@
         <service
             android:name=".ipc.socket.TcpServerService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".requestFramework.RequestActivity" />
+        <activity android:name=".view.animation.EvaluatorActivity" />
+        <activity android:name=".window.WindowActivity" />
+        <activity android:name=".message.MassgeActivity" />
+        <activity android:name=".thread.ThreadActivity" />
+        <activity
+            android:hardwareAccelerated="true"
+            android:name=".cache.MainCacheActivity"></activity>
     </application>
 
 </manifest>

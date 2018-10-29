@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.project.pan.myproject.view.custom.CustomView
+        android:layout_width="match_parent"
+        android:text="啊的刚才啊啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才"
+        android:id="@+id/custom_view"
+        android:textSize="14sp"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:background="@color/colorAccent"
+        android:layout_height="100dp" />
+
+    <Button
+        android:id="@+id/button21"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="scrollClick"
+        android:text="startScroll" />
+
+</LinearLayout>

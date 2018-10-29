@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.RelativeLayout;
+import android.widget.Scroller;
 
 /**
  * @author panRongfu
@@ -116,4 +117,10 @@ public class MyRelativeLayout extends RelativeLayout {
         }
         return super.onInterceptTouchEvent(ev);
     }
+
+    @Override
+    public void computeScroll() {
+        super.computeScroll();
+    }
+
 }

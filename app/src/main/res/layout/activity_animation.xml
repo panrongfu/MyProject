@@ -6,6 +6,14 @@
     android:gravity="center"
     android:orientation="vertical">
 
+    <!--<com.airbnb.lottie.LottieAnimationView-->
+        <!--android:id="@+id/animation_view"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:lottie_fileName="data.json"-->
+        <!--app:lottie_loop="true"-->
+        <!--app:lottie_autoPlay="true" />-->
+
     <!--<com.project.pan.myproject.view.animation.PointView-->
     <!--android:id="@+id/pointer_view"-->
     <!--android:layout_width="105dp"-->
@@ -81,5 +89,12 @@
         android:layout_height="wrap_content"
         android:onClick="clickNextPoint"
         android:text="下一个圆点" />
+
+    <Button
+        android:id="@+id/evaluator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="clickEvaluator"
+        android:text="属性动画估值器" />
 
 </LinearLayout>

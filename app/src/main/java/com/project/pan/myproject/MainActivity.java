@@ -1,5 +1,6 @@
 package com.project.pan.myproject;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,18 +8,23 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 
+import com.project.pan.myproject.cache.MainCacheActivity;
 import com.project.pan.myproject.dagger2.DaggerActivity;
 import com.project.pan.myproject.designMode.DesignModeActivity;
 import com.project.pan.myproject.observer.ObserverActivity;
 import com.project.pan.myproject.onTouchEvent.OnTouchEventActivity;
 import com.project.pan.myproject.view.ViewStubActivity;
 import com.project.pan.myproject.view.animation.AnimationActivity;
+import com.project.pan.myproject.view.custom.CustomViewActivity;
 import com.project.pan.myproject.view.textSwithcer.TextSwitcherActivity;
+import com.project.pan.myproject.window.WindowActivity;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,5 +75,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void customViewClick(View view){
+        startActivity(new Intent(this, CustomViewActivity.class));
+
+    }
+
+    public void clickWindow(View view){
+        startActivity(new Intent(this, WindowActivity.class));
+    }
+
+    public void cacheClick(View view){
+        startActivity(new Intent(this, MainCacheActivity.class));
+    }
 
 }

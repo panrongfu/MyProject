@@ -6,6 +6,12 @@ import android.view.View;
 
 import com.project.pan.myproject.R;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
 
 public class ObserverActivity extends AppCompatActivity {
 
@@ -25,5 +31,40 @@ public class ObserverActivity extends AppCompatActivity {
         myObserver = new MyObserver();
         personObservable.addObserver(myObserver);
         personObservable.setAge(25);
+    }
+
+    public void rxjava(){
+        Observable observable = Observable.create(new ObservableOnSubscribe<Object>() {
+
+            @Override
+            public void subscribe(ObservableEmitter<Object> e) throws Exception {
+                e.onNext("adfd");
+                e.onComplete();
+            }
+        });
+
+        Observer observer = new Observer() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(Object o) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+
+        observable.subscribe(observer);
     }
 }
