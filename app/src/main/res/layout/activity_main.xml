@@ -90,6 +90,11 @@
              android:onClick="cacheClick"
              android:layout_height="wrap_content"
              android:text="cache" />
+         <Button
+             android:layout_width="138dp"
+             android:onClick="jniClick"
+             android:layout_height="wrap_content"
+             android:text="jni" />
      </LinearLayout>
  </ScrollView>
 </LinearLayout>

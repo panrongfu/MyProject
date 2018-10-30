@@ -5,7 +5,8 @@
     <permission
         android:name="com.project.pan.myproject.permission.ACCESS_BOOK_SERVER"
         android:protectionLevel="normal" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".BaseApplication"
@@ -73,8 +74,10 @@
         <activity android:name=".message.MassgeActivity" />
         <activity android:name=".thread.ThreadActivity" />
         <activity
-            android:hardwareAccelerated="true"
-            android:name=".cache.MainCacheActivity"></activity>
+            android:name=".cache.MainCacheActivity"
+            android:hardwareAccelerated="true" />
+        <activity android:name=".dynamic.DynamicActivity" />
+        <activity android:name=".jni.JniActivity"></activity>
     </application>
 
 </manifest>

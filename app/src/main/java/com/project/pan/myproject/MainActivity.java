@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import com.project.pan.myproject.cache.MainCacheActivity;
 import com.project.pan.myproject.dagger2.DaggerActivity;
 import com.project.pan.myproject.designMode.DesignModeActivity;
+import com.project.pan.myproject.jni.JniActivity;
 import com.project.pan.myproject.observer.ObserverActivity;
 import com.project.pan.myproject.onTouchEvent.OnTouchEventActivity;
 import com.project.pan.myproject.view.ViewStubActivity;
@@ -86,6 +87,10 @@ public class MainActivity extends Activity {
 
     public void cacheClick(View view){
         startActivity(new Intent(this, MainCacheActivity.class));
+    }
+
+    public void jniClick(View view){
+        startActivity(new Intent(this, JniActivity.class));
     }
 
 }
