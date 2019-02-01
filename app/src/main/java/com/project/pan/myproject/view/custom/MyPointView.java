@@ -60,6 +60,7 @@ public class MyPointView extends View {
             animator.setDuration(5000);
             animator.addUpdateListener(animation -> {
                 currentPoint = (Point) animation.getAnimatedValue();
+
                 invalidate();
             });
             animator.start();

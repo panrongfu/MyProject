@@ -1,18 +1,23 @@
 package com.project.pan.myproject.cache;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.util.LruCache;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.widget.AbsListView;
 import android.widget.GridView;
 
 import com.jakewharton.disklrucache.DiskLruCache;
 import com.project.pan.myproject.R;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -108,5 +113,79 @@ public class MainCacheActivity extends AppCompatActivity {
 
         File dir = new File(cachePath + File.separator + uniqueName);
         return dir;
+    }
+
+
+    public void bitmapInSampleSize(){
+
+        Bitmap bitmap = decodeSampledBitmapFromResource(getResources(),
+                R.drawable.btn_tick_pressed,100,100);
+
+    }
+
+    public void lruCache(){
+
+    }
+
+    /**
+     * 质量压缩
+     * @param rawBitmap
+     * @param targetSize
+     * @return
+     */
+    public Bitmap compressBitmapQuality(Bitmap rawBitmap,int targetSize){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        //质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        rawBitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        int options = 100;
+        //循环判断，如果压缩后的图片大小大于 目标值TARGET_SIZE，则继续压缩
+        while (baos.toByteArray().length /1024 > targetSize){
+            //重置baos
+            baos.reset();
+            //修改option的值，进行压缩
+            rawBitmap.compress(Bitmap.CompressFormat.JPEG,options,baos);
+            options -= 4;
+        }
+        //把压缩后的数据baos转成字节数组存入 ByteArrayInputStream中
+        ByteArrayInputStream in = new ByteArrayInputStream(baos.toByteArray());
+        Bitmap newBitmap = BitmapFactory.decodeStream(in);
+        return newBitmap;
+
+    }
+
+    /**
+     * 图片比例压缩
+     * @param res
+     * @param resId
+     * @param reqWidth
+     * @param reqHeight
+     * @return
+     */
+    public Bitmap decodeSampledBitmapFromResource(Resources res,int resId,int reqWidth,int reqHeight){
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(res,resId,options);
+        options.inSampleSize = calculateInSampleSize(options,reqWidth,reqHeight);
+        options.inJustDecodeBounds =false;
+        return BitmapFactory.decodeResource(res,resId,options);
+
+    }
+
+    private int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        //原始的宽高
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+        //如果原始的高度大于需要的高度，或者原始的宽度大于需要的宽度，才需要进行压缩，反之没必要
+        if(height > reqHeight || width > reqWidth){
+            final int halfHeight = height/2;
+            final int halfWidth = width/2;
+            //计算inSampleSize的最大值,inSampleSize的值官方推荐最好是2的N次方所以inSampleSize *=2
+            while ((halfHeight / inSampleSize)>= reqHeight
+                    && (halfWidth / inSampleSize) >= reqWidth){
+                inSampleSize *=2;
+            }
+        }
+        return inSampleSize;
     }
 }

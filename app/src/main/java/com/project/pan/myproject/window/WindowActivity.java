@@ -3,6 +3,7 @@ package com.project.pan.myproject.window;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.PixelFormat;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,21 +38,18 @@ public class WindowActivity extends AppCompatActivity {
                 PixelFormat.TRANSPARENT);
         layoutParams.x = 100;
         layoutParams.y = 300;
-        button.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int rawX = (int) event.getRawX();
-                int rawY = (int) event.getRawY();
-                switch (event.getAction()){
-                    case MotionEvent.ACTION_MOVE:
-                        Log.e(">>>>>",rawX+"::"+rawY);
-                        layoutParams.x = rawX;
-                        layoutParams.y = rawY;
-                        windowManager.updateViewLayout(button,layoutParams);
-                        break;
-                }
-                return true;
+        button.setOnTouchListener((v, event) -> {
+            int rawX = (int) event.getRawX();
+            int rawY = (int) event.getRawY();
+            switch (event.getAction()){
+                case MotionEvent.ACTION_MOVE:
+                    Log.e(">>>>>",rawX+"::"+rawY);
+                    layoutParams.x = rawX;
+                    layoutParams.y = rawY;
+                    windowManager.updateViewLayout(button,layoutParams);
+                    break;
             }
+            return false;
         });
         windowManager.addView(button,layoutParams);
 

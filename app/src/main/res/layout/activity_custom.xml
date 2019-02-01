@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.project.pan.myproject.view.custom.CustomView
-        android:layout_width="match_parent"
-        android:text="啊的刚才啊啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才啊的刚才"
+        android:layout_width="45dp"
+        android:text="oooooodfdfd"
         android:id="@+id/custom_view"
         android:textSize="14sp"
         android:textColor="#ffffff"
         android:gravity="center"
         android:background="@color/colorAccent"
-        android:layout_height="100dp" />
+        android:layout_height="45dp" />
 
     <Button
         android:id="@+id/button21"
@@ -19,5 +19,10 @@
         android:layout_height="wrap_content"
         android:onClick="scrollClick"
         android:text="startScroll" />
+
+    <com.project.pan.myproject.view.custom.CircleView
+        android:layout_width="100dp"
+        android:background="@color/colorAccent"
+        android:layout_height="100dp" />
 
 </LinearLayout>

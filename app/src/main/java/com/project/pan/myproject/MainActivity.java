@@ -2,18 +2,26 @@ package com.project.pan.myproject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.RequiresApi;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.google.gson.Gson;
+import com.project.pan.common.global.ARouterPaths;
 import com.project.pan.myproject.cache.MainCacheActivity;
 import com.project.pan.myproject.dagger2.DaggerActivity;
 import com.project.pan.myproject.designMode.DesignModeActivity;
+import com.project.pan.myproject.dispatch.DispatchActivity;
+import com.project.pan.myproject.dispatch.DispatchActivity2;
 import com.project.pan.myproject.jni.JniActivity;
 import com.project.pan.myproject.observer.ObserverActivity;
 import com.project.pan.myproject.onTouchEvent.OnTouchEventActivity;
@@ -27,6 +35,7 @@ import com.project.pan.myproject.window.WindowActivity;
 public class MainActivity extends Activity {
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,4 +102,44 @@ public class MainActivity extends Activity {
         startActivity(new Intent(this, JniActivity.class));
     }
 
+    public void clickDispatch(View view){
+        startActivity(new Intent(this, DispatchActivity.class));
+    }
+
+    public void clickDispatch2(View view){
+        startActivity(new Intent(this, DispatchActivity2.class));
+
+    }
+
+    public void clickNotify(View view){
+        ARouter.getInstance()
+                .build(ARouterPaths.NOTIFY_ACTIVITY)
+                .navigation();
+    }
+
+    public void clickKotlin(View view){
+        ARouter.getInstance()
+                .build(ARouterPaths.K_HOME_ACTIVITY)
+                .navigation(MainActivity.this);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public AssetManager getAssets() {
+        return super.getAssets();
+    }
+
+    @Override
+    public Resources getResources() {
+        return super.getResources();
+    }
 }

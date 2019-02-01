@@ -1,0 +1,94 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+//快捷的findviewfindid操作，建议加上
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ AROUTER_MODULE_NAME : project.getName() ]
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+repositories {
+    mavenCentral()
+    google()
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleCompatible
+    api 'junit:junit:4.12'
+    api 'com.android.support.test:runner:1.0.2'
+    api 'com.android.support.test.espresso:espresso-core:3.0.2'
+    // Support库
+    api rootProject.ext.supportLibs
+    // retrofit
+    api rootProject.ext.networkLibs
+    //rxJava
+    api rootProject.ext.rxJavaLibs
+    //nineoldandroids
+    api rootProject.ext.nineoldandroids
+    //lottie动画框架
+    api rootProject.ext.lottie
+    //volley 网络请求框架
+    api rootProject.ext.volley
+    //rxCache, disklrucache
+    api rootProject.ext.cacheLibs
+    //kotlin -anko-recyclerview-v7
+    api (rootProject.ext.ankoRecyclerview){
+        exclude group: 'org.jetbrains'
+        exclude module: 'support-v4'
+    }
+    //kotlin -anko
+    api (rootProject.ext.anko){
+        exclude group: 'org.jetbrains'
+        exclude module: 'support-v4'
+    }
+    //kotlin - kotlin-stdlib-jdk7
+    api (rootProject.ext.kotlinStdlibJdk7)
+    //图片处理
+    api(rootProject.ext.glide) {
+        exclude module: 'support-v4'
+    }
+    annotationProcessor(rootProject.ext.glideCompiler) {
+        exclude module: 'jsr305'
+        exclude module: 'support-v4'
+    }
+    //arouter 路由
+    api(rootProject.ext.arouterApi) {
+        exclude module: 'support-v4'
+    }
+    annotationProcessor(rootProject.ext.arouterCompiler) {
+        exclude module: 'support-v4'
+    }
+    //权限
+    api(rootProject.ext.rxpermissions) {
+        exclude module: 'support-v4'
+    }
+    //适配器
+    api rootProject.ext.adapterHelper
+    //刷新 加载
+    api rootProject.ext.smartRefreshLibs
+    //轮播
+    api rootProject.ext.bgaBanner
+    //tabLayout 底部菜单
+    api (rootProject.ext.tabLayout){
+        exclude group: 'com.android.support', module: 'support-v4'
+    }
+}

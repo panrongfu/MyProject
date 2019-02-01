@@ -15,7 +15,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -77,7 +77,12 @@
             android:name=".cache.MainCacheActivity"
             android:hardwareAccelerated="true" />
         <activity android:name=".dynamic.DynamicActivity" />
-        <activity android:name=".jni.JniActivity"></activity>
+        <activity android:name=".jni.JniActivity" />
+        <activity android:name=".dispatch.DispatchActivity" />
+        <activity android:name=".dispatch.DispatchActivity2" />
+        <activity android:name=".notify.NotifyActivity"></activity>
+        <activity android:name="com.project.pan.kotlin.ui.activities.KHomeActivity"/>
+
     </application>
 
 </manifest>

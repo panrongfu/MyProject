@@ -17,8 +17,8 @@ public class JniActivity extends AppCompatActivity {
 
     public void jniClick(View view){
 
-        JniTest jniTest = new JniTest();
+       // JniSDK jniTestSdk = new JniSDK();
 
-        Toast.makeText(this,jniTest.get(),Toast.LENGTH_LONG).show();
+       // Toast.makeText(this, jniTestSdk.get(),Toast.LENGTH_LONG).show();
     }
 }

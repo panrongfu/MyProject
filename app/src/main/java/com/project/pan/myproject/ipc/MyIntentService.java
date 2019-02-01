@@ -14,9 +14,12 @@ import android.content.Context;
  */
 public class MyIntentService extends IntentService {
 
+    public MyIntentService(){
+        super(null);
 
+    }
 
-    public MyIntentService(String name) {
+    private MyIntentService(String name) {
         super(name);
     }
 

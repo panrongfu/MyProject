@@ -31,6 +31,11 @@ public class ThreadActivity extends AppCompatActivity {
         new DownloadTask().execute("xxx","xxx","xxxx");
     }
 
+    /**
+     * 第一个参数Params，表示参数的类型
+     * 第二个参数progress：表示后台任务的执行进度类型
+     * 第三个参数result：表示后台任务的返回结果类型
+     */
     class DownloadTask extends AsyncTask<String,Long,Long>{
 
 
@@ -49,7 +54,7 @@ public class ThreadActivity extends AppCompatActivity {
          */
         @Override
         protected Long doInBackground(String... urls) {
-          //调用publishProgress();该方法回调用onProgressUpdate（...）方法
+          //调用publishProgress();该方法回调onProgressUpdate（...）方法
           //返回值就是onPostExecute（）的参数值
             return null;
         }
@@ -64,6 +69,10 @@ public class ThreadActivity extends AppCompatActivity {
             super.onPostExecute(aLong);
         }
 
+        /**
+         * 在主线程中执行，当后台任务的执行进度发生改变时，此方法会被调用
+         * @param values
+         */
         @Override
         protected void onProgressUpdate(Long... values) {
             super.onProgressUpdate(values);
@@ -77,6 +86,7 @@ public class ThreadActivity extends AppCompatActivity {
      */
     public void executor(){
 
+        ExecutorService executorService = Executors.newCachedThreadPool();
         
     }
 }

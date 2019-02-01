@@ -95,6 +95,28 @@
              android:onClick="jniClick"
              android:layout_height="wrap_content"
              android:text="jni" />
+
+         <Button
+             android:layout_width="138dp"
+             android:onClick="clickDispatch"
+             android:layout_height="wrap_content"
+             android:text="外部拦截" />
+         <Button
+             android:layout_width="138dp"
+             android:onClick="clickDispatch2"
+             android:layout_height="wrap_content"
+             android:text="内部拦截" />
+         <Button
+             android:layout_width="138dp"
+             android:onClick="clickNotify"
+             android:layout_height="wrap_content"
+             android:text="notify" />
+
+         <Button
+             android:layout_width="138dp"
+             android:onClick="clickKotlin"
+             android:layout_height="wrap_content"
+             android:text="kotlin" />
      </LinearLayout>
  </ScrollView>
 </LinearLayout>

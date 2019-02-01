@@ -1,52 +1,120 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    signingConfigs {
+        AppPack {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('../debug.keystore')
+            storePassword 'android'
+        }
+    }
+//    buildTypes {
+//        debug {
+//            //是否开启混淆
+//            minifyEnabled false
+//            //Zipalign优化
+//            zipAlignEnabled false
+//            // 移除无用的resource文件
+//            shrinkResources false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.AppPack
+//        }
+//        release {
+//            //applicationIdSuffix ".test"
+//            minifyEnabled false
+//            //Zipalign优化
+//            zipAlignEnabled false
+//            // 移除无用的resource文件
+//            shrinkResources false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.AppPack
+//        }
+//    }
     defaultConfig {
         applicationId "com.project.pan.myproject"
-        minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ AROUTER_MODULE_NAME : project.getName() ]
+            }
+        }
+        multiDexEnabled true
+
+//        ndk {
+//
+//            //APP的build.gradle设置支持的SO库架构
+//            abiFilters 'armeabi', 'armeabi-v7a', 'x86'
+//        }
+        // 实现毛玻璃那种透明的效果需要添加的库
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true    // Enable RS support
+    }
+
+    //配置So文件存放位置
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    externalNativeBuild {
+        ndkBuild {
+            path 'src/main/jni/Android.mk'
+        }
+    }
+    packagingOptions {
+        pickFirst 'lib/x86/libjniTestSdk.so'
+        exclude 'lib/armeabi-v7a/libRSSupport.so'
+        exclude 'lib/arm64-v8a/libRSSupport.so'
+        exclude 'lib/x86_64/libRSSupport.so'
+        exclude 'lib/x86/libRSSupport.so'
+        exclude 'lib/mips/libRSSupport.so'
+
+        exclude 'lib/mips/librsjni.so'
+        exclude 'lib/armeabi-v7a/librsjni.so'
+        exclude 'lib/arm64-v8a/librsjni.so'
+        exclude 'lib/x86/librsjni.so'
+        exclude 'lib/x86_64/librsjni.so'
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
     }
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
     buildToolsVersion '26.0.2'
-
-    //配置So文件存放位置
-    sourceSets{
-        main{
-            jniLibs.srcDirs=['libs']
-        }
-    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    //    testImplementation 'junit:junit:4.12'
-    //    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    //    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation 'com.google.dagger:dagger:2.15'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.15'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.0.7'
-    implementation 'com.android.support:support-annotations:28.0.0-alpha3'
-    implementation 'com.nineoldandroids:library:2.4.0'
-    implementation "com.airbnb.android:lottie:2.6.0-beta19"
-    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
-    compile 'com.android.volley:volley:1.1.1'
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation project(':jnisdk')
+    implementation project(':common')
+    implementation project(':kotlin')
+    implementation rootProject.ext.dagger
+    annotationProcessor(rootProject.ext.daggerCompiler)
+    annotationProcessor(rootProject.ext.arouterCompiler){
+        exclude module: 'support-v4'
+    }
+}
 
-    compile 'com.jakewharton:disklrucache:2.0.2'
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '27.1.1'
+            }
+        }
+    }
 }

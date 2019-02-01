@@ -20,6 +20,7 @@
   import android.text.TextUtils;
   import android.util.Log;
   import android.view.View;
+  import android.view.ViewConfiguration;
 
   import com.project.pan.myproject.R;
   import com.project.pan.myproject.ipc.provider.MyBook;
@@ -27,10 +28,13 @@
 
   import java.io.BufferedReader;
   import java.io.BufferedWriter;
+  import java.io.FileOutputStream;
   import java.io.IOException;
   import java.io.InputStreamReader;
+  import java.io.ObjectOutputStream;
   import java.io.OutputStreamWriter;
   import java.io.PrintWriter;
+  import java.io.Serializable;
   import java.net.Socket;
   import java.text.SimpleDateFormat;
   import java.util.Date;
@@ -155,6 +159,7 @@ public class IpcActivity extends AppCompatActivity {
 
     public void clickSocket(View view){
         AsyncTask.execute(()-> connectTcpServer());
+        ViewConfiguration.get(this).getScaledTouchSlop();
     }
 
     public void clickSendSocket(View view){
@@ -198,6 +203,8 @@ public class IpcActivity extends AppCompatActivity {
     }
 
     ServiceConnection aidlConnection = new ServiceConnection() {
+
+
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             //asInterface方法用于将服务端的Binder对象转换成客户端所需要的AIDL接口类型的对象

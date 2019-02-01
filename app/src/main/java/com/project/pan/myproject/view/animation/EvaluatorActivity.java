@@ -38,8 +38,5 @@ public class EvaluatorActivity extends AppCompatActivity {
         objectAnimator.setInterpolator(new DecelerateInterpolator());
         objectAnimator.setDuration(1000);
         objectAnimator.start();
-
-
-
     }
 }
