@@ -6,14 +6,17 @@
   import android.content.ContextWrapper;
   import android.content.Intent;
   import android.content.ServiceConnection;
+  import android.content.pm.PackageManager;
   import android.database.Cursor;
   import android.net.Uri;
   import android.os.AsyncTask;
+  import android.os.Binder;
   import android.os.Bundle;
   import android.os.Handler;
   import android.os.IBinder;
   import android.os.Message;
   import android.os.Messenger;
+  import android.os.Parcelable;
   import android.os.RemoteException;
   import android.os.SystemClock;
   import android.support.v7.app.AppCompatActivity;
@@ -25,6 +28,7 @@
   import com.project.pan.myproject.R;
   import com.project.pan.myproject.ipc.provider.MyBook;
   import com.project.pan.myproject.ipc.provider.MyUser;
+  import com.project.pan.myproject.ipc.socket.TcpServerService;
 
   import java.io.BufferedReader;
   import java.io.BufferedWriter;
@@ -38,6 +42,7 @@
   import java.net.Socket;
   import java.text.SimpleDateFormat;
   import java.util.Date;
+  import java.util.concurrent.Executors;
 
   /**
  * @author pan
@@ -57,24 +62,7 @@ public class IpcActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what){
                 case MESSAGE_SOCKET_CONNECTED:
-                    try {
-                        BufferedReader br = new BufferedReader(new InputStreamReader(mClientSocket.getInputStream()));
-                         while(!IpcActivity.this.isFinishing()){
-                            String content = br.readLine();
-                            Log.e("receive:", content);
-                            if(content != null){
-                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
-                                //获取当前时间
-                                Date date = new Date(System.currentTimeMillis());
-                                String timeStr = simpleDateFormat.format(date);
-                                final String showMsg = "from server:"+content+"time"+timeStr;
-                                mHandler.obtainMessage(MESSAGE_RECEIVE_NEW_MSG,showMsg)
-                                        .sendToTarget();
-                            }
-                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+
                     break;
                 default:
                     break;
@@ -157,59 +145,79 @@ public class IpcActivity extends AppCompatActivity {
         userCursor.close();
     }
 
-    public void clickSocket(View view){
-        AsyncTask.execute(()-> connectTcpServer());
-        ViewConfiguration.get(this).getScaledTouchSlop();
+    public void startSocket(View view){
+        startService(new Intent(this, TcpServerService.class));
     }
+    public void connectSocket(View view){
+        Executors.newFixedThreadPool(1).execute(()-> connectTcpServer());
+    }
+    private void connectTcpServer(){
+          Socket socket = null;
+          while (socket == null){
+              try {
+                  //创建客户端
+                  socket = new Socket("localhost",TcpServerService.PORT);
+                  mClientSocket = socket;
+                  //输出流
+                  mPrintWriter = new PrintWriter(new BufferedWriter(
+                          new OutputStreamWriter(socket.getOutputStream())),true);
+                 // mHandler.sendEmptyMessage(MESSAGE_SOCKET_CONNECTED);
+
+                  //接收服务端的信息
+                  try {
+                      BufferedReader br = new BufferedReader(new InputStreamReader(mClientSocket.getInputStream()));
+                      while(!IpcActivity.this.isFinishing()){
+                          String content = br.readLine();
+                          if(content != null){
+                              Log.e("from server:",content);
+                          }
+                      }
+                  } catch (IOException e) {
+                      e.printStackTrace();
+                  }
+              } catch (IOException e) {
+                  e.printStackTrace();
+              }
+          }
+      }
 
     public void clickSendSocket(View view){
-        mPrintWriter.println("我发送一个信息吧，说什么呢");
+        Executors.newFixedThreadPool(1).execute(()->   mPrintWriter.println("我发送一个信息吧，说什么呢"));
     }
 
-    private void connectTcpServer(){
-        Socket socket = null;
-        while (socket == null){
-            try {
-                socket = new Socket("localhost",10086);
-                mClientSocket = socket;
-                //输出流
-                mPrintWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())));
-                mHandler.sendEmptyMessage(MESSAGE_SOCKET_CONNECTED);
-                //读服务端数据
-                BufferedReader br = new BufferedReader(new InputStreamReader(mClientSocket.getInputStream()));
-                while(!IpcActivity.this.isFinishing()){
-                    String content = br.readLine();
-                    Log.e("receive:", content);
-                    if(content != null){
-                        // HH:mm:ss
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-                        //获取当前时间
-                        Date date = new Date(System.currentTimeMillis());
-                        String timeStr = simpleDateFormat.format(date);
-                        final String showMsg = "from server:"+content+"time"+timeStr;
-                        mHandler.obtainMessage(MESSAGE_RECEIVE_NEW_MSG,showMsg)
-                                .sendToTarget();
-                    }
-                }
-                mPrintWriter.close();
-                br.close();
-                socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-                SystemClock.sleep(1000);
-            }
-        }
+    public void startService(View view){
+        startService(new Intent(this,TestService.class));
+    }
+      TestBindService.MyBinder mMyBinder;
+    public void bindService(View view){
+        bindService(new Intent(this,TestBindService.class),connection,BIND_AUTO_CREATE);
 
     }
+    ServiceConnection connection = new ServiceConnection() {
+          @Override
+          public void onServiceConnected(ComponentName name, IBinder service) {
+              mMyBinder = (TestBindService.MyBinder)service;
+              mMyBinder.getStringInfo();
+          }
+
+          @Override
+          public void onServiceDisconnected(ComponentName name) {
+              // 解除绑定后回调
+              mMyBinder = null;
+          }
+      };
 
     ServiceConnection aidlConnection = new ServiceConnection() {
 
 
         @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
+        public void onServiceConnected(ComponentName name, IBinder binder) {
             //asInterface方法用于将服务端的Binder对象转换成客户端所需要的AIDL接口类型的对象
-            iBookManager = IBookManager.Stub.asInterface(service);
+            iBookManager = IBookManager.Stub.asInterface(binder);
+
             try {
+                //在客户端绑定远程服务成功之后，给binder设置死亡代理
+                binder.linkToDeath(mDeathRecipient,0);
                 /**
                  * 客户端调用远程服务的方法，被调用的方法运行在服务端的binder线程池中，同时客户端线程会被挂起
                  * 这时候如果如果服务端方法执行比较耗时，就会导致客户端线程长时间地阻塞在这里
@@ -230,6 +238,18 @@ public class IpcActivity extends AppCompatActivity {
 
         }
     };
+
+     //binder死亡代理
+      IBinder.DeathRecipient mDeathRecipient = new IBinder.DeathRecipient() {
+          @Override
+          public void binderDied() {
+              if (iBookManager == null){
+                  return;
+              }
+              iBookManager.asBinder().unlinkToDeath(mDeathRecipient,0);
+              iBookManager = null;
+          }
+      };
     IOnNewBookAddListener onNewBookAddListener = new IOnNewBookAddListener.Stub() {
         @Override
         public void basicTypes(int anInt, long aLong, boolean aBoolean, float aFloat, double aDouble, String aString) throws RemoteException {
@@ -283,8 +303,8 @@ public class IpcActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         //解注册
-        unbindService(aidlConnection);
-        unbindService(messengerConnection);
+//        unbindService(aidlConnection);
+//        unbindService(messengerConnection);
         try {
             iBookManager.unRegisterListener(onNewBookAddListener);
         } catch (RemoteException e) {
@@ -304,4 +324,5 @@ public class IpcActivity extends AppCompatActivity {
     public void broadcastReceiver(){
 
     }
+
 }

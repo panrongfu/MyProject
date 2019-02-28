@@ -20,8 +20,8 @@ import io.reactivex.schedulers.Schedulers
  *
  */
 class KFollowPresenter(context: Context, rootView: IView): BasePresenter<KFollowContract.View> (context,rootView){
-    var repositoryManager = RepositoryManager.newRepositoryManager(context)
-    var mModel = KFollowModel(repositoryManager)
+    private var repositoryManager = RepositoryManager.newRepositoryManager(context)!!
+    private var mModel = KFollowModel(repositoryManager)
     var nextPageUrl:String? = null
 
     /**

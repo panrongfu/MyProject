@@ -6,4 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.project.pan.myproject.dynamic.DynamicActivity">
 
+    <Button
+        android:id="@+id/button28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickHook"
+        android:text="HOOK"
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="16dp" />
 </android.support.constraint.ConstraintLayout>

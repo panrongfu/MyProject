@@ -33,7 +33,9 @@ ext{
             smartrefresh            : "1.1.0-alpha-18",
             bgaBanner               : "2.2.5@aar",
             tablayout               : "2.1.0@aar",
-            dagger                  : "2.15"
+            dagger                  : "2.15",
+            rxlifecycle             : "3.0.0",
+            eventbus                : "3.1.1"
     ]
     supportDeps = [
             //--------  support  -------
@@ -79,10 +81,21 @@ ext{
             disklrucache : "com.jakewharton:disklrucache:$dependVersion.disklrucache",
             rxCache : "com.github.VictorAlbertos.RxCache:runtime:$dependVersion.rxCache"
     ]
+    rxlifecycles = [
+           // rxlifecycleNavi : "com.trello.rxlifecycle3:rxlifecycle-navi:$dependVersion.rxlifecycle",
+            rxlifecycleComponents : "com.trello.rxlifecycle2:rxlifecycle-components:2.1.0"
+    ]
+
+    rxLifecycleKotlin = [
+            rxlifecycleComponents : "com.trello.rxlifecycle3:rxlifecycle-components:$dependVersion.rxlifecycle"
+           // rxlifecycleKotlin : "com.trello.rxlifecycle3:rxlifecycle-kotlin:$dependVersion.rxlifecycle",
+           // androidLifecycleKotlin : "com.trello.rxlifecycle3:rxlifecycle-android-lifecycle-kotlin:$dependVersion.rxlifecycle"
+    ]
 
     glide = "com.github.bumptech.glide:glide:$dependVersion.glideSdkVersion"
     glideCompiler = "com.github.bumptech.glide:compiler:$dependVersion.glideSdkVersion"
     glideOkhttp = "com.github.bumptech.glide:okhttp3-integration:$dependVersion.glideSdkVersion"
+
 
     nineoldandroids = "com.nineoldandroids:library:$dependVersion.nineoldandroids"
     lottie = "com.airbnb.android:lottie:$dependVersion.lottie"
@@ -103,6 +116,8 @@ ext{
     dagger = "com.google.dagger:dagger:$dependVersion.dagger"
     daggerCompiler = "com.google.dagger:dagger-compiler:$dependVersion.dagger"
 
+    eventbus = "org.greenrobot:eventbus:$dependVersion.eventbus"
+
     supportLibs = supportDeps.values()
     networkLibs = retrofit.values()
     rxJavaLibs = rxJava.values()
@@ -110,7 +125,8 @@ ext{
     kotlinLibs = kotlins.values()
     smartRefreshLibs = smartRefreshs.values()
     cacheLibs = caches.values()
-
+    rxLifecycleLibs = rxlifecycles.values()
+    rxLifecycleKotlinLibs = rxLifecycleKotlin.values()
 //    otherLibs = [glide]
     // APT
     annotationProcessorLibs =[glideCompiler]

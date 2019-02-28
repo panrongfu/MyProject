@@ -14,6 +14,9 @@ import android.widget.TextView;
 import com.project.pan.myproject.R;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class DispatchActivity extends AppCompatActivity {
 
@@ -37,6 +40,7 @@ public class DispatchActivity extends AppCompatActivity {
             createList(layout);
             horizontalScrollViewEx.addView(layout);
         }
+
     }
 
 

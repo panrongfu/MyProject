@@ -11,7 +11,9 @@ import java.net.URL;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class ThreadActivity extends AppCompatActivity {
 
@@ -87,6 +89,30 @@ public class ThreadActivity extends AppCompatActivity {
     public void executor(){
 
         ExecutorService executorService = Executors.newCachedThreadPool();
-        
+
+        /**
+         * Creates a new {@code ThreadPoolExecutor} with the given initial
+         * parameters and default thread factory and rejected execution handler.
+         * It may be more convenient to use one of the {@link Executors} factory
+         * methods instead of this general purpose constructor.
+         *
+         * @param corePoolSize 核心线程数
+         *        核心线程会一直存活，及时没有任务需要执行
+         *        当线程数小于核心线程数时，即使有线程空闲，线程池也会优先创建新线程处理
+         *        设置allowCoreThreadTimeout=true（默认false）时，核心线程会超时关闭
+         * @param maximumPoolSize 最大线程数
+         *       当线程数>=corePoolSize，且任务队列已满时。线程池会创建新线程来处理任务
+         *       当线程数=maxPoolSize，且任务队列已满时，线程池会拒绝处理任务而抛出异常
+         * @param keepAliveTime 线程空闲时间
+         *        当线程空闲时间达到keepAliveTime时，线程会退出，直到线程数量=corePoolSize
+         *        如果allowCoreThreadTimeout=true，则会直到线程数量=0
+         * @param unit 允许核心线程超时
+         * @param workQueue 任务队列容量（阻塞队列）
+         *        当核心线程数达到最大时，新任务会放在队列中排队等待执行
+         * @param rejectedExecutionHandler 任务拒绝处理器
+         *        当线程数已经达到maxPoolSize，切队列已满，会拒绝新任务
+         *        当线程池被调用shutdown()后，会等待线程池里的任务执行完毕，再shutdown
+         */
+       // ThreadPoolExecutor(0, Integer.MAX_VALUE,60L, TimeUnit.SECONDS,new SynchronousQueue<Runnable>())
     }
 }

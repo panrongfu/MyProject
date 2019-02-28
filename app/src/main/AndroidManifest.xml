@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.project.pan.myproject">
 
     <permission
@@ -15,7 +16,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar"
+        tools:ignore="GoogleAppIndexingWarning">
+        <service
+            android:name=".ipc.TestService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <service
+            android:name=".ipc.TestBindService"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -80,9 +92,8 @@
         <activity android:name=".jni.JniActivity" />
         <activity android:name=".dispatch.DispatchActivity" />
         <activity android:name=".dispatch.DispatchActivity2" />
-        <activity android:name=".notify.NotifyActivity"></activity>
-        <activity android:name="com.project.pan.kotlin.ui.activities.KHomeActivity"/>
-
+        <activity android:name=".notify.NotifyActivity" />
+        <activity android:name="com.project.pan.kotlin.ui.activities.KHomeActivity" />
     </application>
 
 </manifest>

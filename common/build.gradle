@@ -42,6 +42,10 @@ dependencies {
     api rootProject.ext.networkLibs
     //rxJava
     api rootProject.ext.rxJavaLibs
+    //rxLifecycle
+    api (rootProject.ext.rxLifecycleLibs){
+        exclude module: 'rxandroid'
+    }
     //nineoldandroids
     api rootProject.ext.nineoldandroids
     //lottie动画框架
@@ -50,6 +54,8 @@ dependencies {
     api rootProject.ext.volley
     //rxCache, disklrucache
     api rootProject.ext.cacheLibs
+    //eventbus
+    api rootProject.ext.eventbus
     //kotlin -anko-recyclerview-v7
     api (rootProject.ext.ankoRecyclerview){
         exclude group: 'org.jetbrains'

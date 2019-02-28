@@ -14,12 +14,15 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author pan
  */
 public class TcpServerService extends Service {
-    private static final int PORT = 1086;
+    public static final int PORT = 1086;
     private boolean isServiceDestoryed = false;
     private String[] defaultMsg = new String[]{
             "HELLO",
@@ -60,7 +63,7 @@ public class TcpServerService extends Service {
         while (!isServiceDestoryed){
             try {
                 Socket client = serverSocket.accept();
-                AsyncTask.execute(()->responseClient(client));
+                Executors.newFixedThreadPool(2).execute(()->responseClient(client));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -81,15 +84,16 @@ public class TcpServerService extends Service {
             out.println("你好啊，索嗨");
             while (!isServiceDestoryed){
                 String content = in.readLine();
-                Log.e("content from client",content+"");
+                Log.e("from client",content+"");
                 if(content == null){
                     //客户端断开连接
+                    Log.e("responseClient","客户端断开连接");
                     break;
                 }
                 int i = new Random().nextInt(defaultMsg.length);
                 String msg = defaultMsg[i];
                 out.println(msg);
-                Log.e("send msg to client",msg+"");
+                Log.e("send to client",msg+"");
             }
             in.close();
             out.close();

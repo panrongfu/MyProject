@@ -10,13 +10,15 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author pan
  */
 public class AidlService extends Service {
+    //支持并发读写
+    CopyOnWriteArrayList<Book> bookList = new CopyOnWriteArrayList<>();
 
-    List<Book>   bookList = new ArrayList<>();
     RemoteCallbackList<IOnNewBookAddListener> remoteCallbackList = new RemoteCallbackList<IOnNewBookAddListener>();
     IBinder iBinder = new IBookManager.Stub() {
          @Override
@@ -27,6 +29,19 @@ public class AidlService extends Service {
          @Override
          public void addBook(Book book) throws RemoteException {
             bookList.add(book);
+
+             int N = remoteCallbackList.beginBroadcast();
+             for(int i = 0; i < N; i++){
+                 IOnNewBookAddListener listener = remoteCallbackList.getBroadcastItem(1);
+                 if(listener != null){
+                     try {
+                         listener.onNewBookAdd(book);
+                     } catch (RemoteException e) {
+                         e.printStackTrace();
+                     }
+                 }
+             }
+             remoteCallbackList.finishBroadcast();
          }
 
         @Override
@@ -49,19 +64,6 @@ public class AidlService extends Service {
         //默认添加一本书
         Book book = new Book();
         bookList.add(book);
-
-        int N = remoteCallbackList.beginBroadcast();
-        for(int i = 0; i < N; i++){
-            IOnNewBookAddListener listener = remoteCallbackList.getBroadcastItem(1);
-            if(listener != null){
-                try {
-                    listener.onNewBookAdd(book);
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-       remoteCallbackList.finishBroadcast();
     }
 
     @Override

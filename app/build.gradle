@@ -36,6 +36,7 @@ android {
         applicationId "com.project.pan.myproject"
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
+        buildToolsVersion rootProject.ext.android.buildToolsVersion
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -93,7 +94,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
-    buildToolsVersion '26.0.2'
 }
 
 dependencies {

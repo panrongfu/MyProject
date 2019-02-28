@@ -22,6 +22,8 @@ import com.project.pan.myproject.dagger2.DaggerActivity;
 import com.project.pan.myproject.designMode.DesignModeActivity;
 import com.project.pan.myproject.dispatch.DispatchActivity;
 import com.project.pan.myproject.dispatch.DispatchActivity2;
+import com.project.pan.myproject.dynamic.DynamicActivity;
+import com.project.pan.myproject.ipc.IpcActivity;
 import com.project.pan.myproject.jni.JniActivity;
 import com.project.pan.myproject.observer.ObserverActivity;
 import com.project.pan.myproject.onTouchEvent.OnTouchEventActivity;
@@ -52,6 +54,10 @@ public class MainActivity extends Activity {
         ImageView iv = findViewById(R.id.iv);
         iv.setImageBitmap(bitmap);
         startActivity(new Intent(this, OnTouchEventActivity.class));
+    }
+
+    public void ipc(View view){
+        startActivity(new Intent(this, IpcActivity.class));
     }
 
     @Override
@@ -121,6 +127,10 @@ public class MainActivity extends Activity {
         ARouter.getInstance()
                 .build(ARouterPaths.K_HOME_ACTIVITY)
                 .navigation(MainActivity.this);
+    }
+
+    public void clickDynamic(View view){
+        startActivity(new Intent(this, DynamicActivity.class));
     }
 
     @Override
