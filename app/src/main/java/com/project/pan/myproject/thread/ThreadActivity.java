@@ -17,6 +17,8 @@ import java.util.concurrent.TimeUnit;
 
 public class ThreadActivity extends AppCompatActivity {
 
+    final private int CANCELLED = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +40,7 @@ public class ThreadActivity extends AppCompatActivity {
      * 第二个参数progress：表示后台任务的执行进度类型
      * 第三个参数result：表示后台任务的返回结果类型
      */
-    class DownloadTask extends AsyncTask<String,Long,Long>{
+    class DownloadTask extends AsyncTask<String,Integer,Integer>{
 
 
         /**
@@ -55,20 +57,24 @@ public class ThreadActivity extends AppCompatActivity {
          * @return
          */
         @Override
-        protected Long doInBackground(String... urls) {
+        protected Integer doInBackground(String... urls) {
           //调用publishProgress();该方法回调onProgressUpdate（...）方法
           //返回值就是onPostExecute（）的参数值
+            if(isCancelled()){
+                publishProgress(CANCELLED);
+                return null;
+            }
             return null;
         }
 
         /**
          * 第三个执行
          * 这个参数是 doInBackground的返回值
-         * @param aLong
+         * @param integer
          */
         @Override
-        protected void onPostExecute(Long aLong) {
-            super.onPostExecute(aLong);
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
         }
 
         /**
@@ -76,8 +82,12 @@ public class ThreadActivity extends AppCompatActivity {
          * @param values
          */
         @Override
-        protected void onProgressUpdate(Long... values) {
-            super.onProgressUpdate(values);
+        protected void onProgressUpdate(Integer... values) {
+           switch (values[0]){
+               case CANCELLED:
+                   // TODO: 2019/2/28 停止任务 
+                   break;
+           }
         }
 
     }
