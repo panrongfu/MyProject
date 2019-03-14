@@ -10,7 +10,7 @@ package com.project.pan.kotlin
 //┃　　　　　　　┃
 //┗━┓　　　┏━┛
 //    ┃　　　┃   神兽保佑
-//    ┃　　　┃   代码无BUG！
+//    ┃　　　┃   代码无BUG
 //    ┃　　　┗━━━┓
 //    ┃　　　　　　　┣┓
 //    ┃　　　　　　　┏┛
