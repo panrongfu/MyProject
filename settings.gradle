@@ -1,1 +1,1 @@
-include ':app', ':jnisdk', ':kotlin', ':common'
+include ':app', ':jnisdk', ':kotlin', ':common', ':myapplication'

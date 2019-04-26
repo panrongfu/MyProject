@@ -27,6 +27,7 @@ import com.project.pan.myproject.ipc.IpcActivity;
 import com.project.pan.myproject.jni.JniActivity;
 import com.project.pan.myproject.observer.ObserverActivity;
 import com.project.pan.myproject.onTouchEvent.OnTouchEventActivity;
+import com.project.pan.myproject.view.BezierActivity;
 import com.project.pan.myproject.view.ViewStubActivity;
 import com.project.pan.myproject.view.animation.AnimationActivity;
 import com.project.pan.myproject.view.custom.CustomViewActivity;
@@ -151,5 +152,9 @@ public class MainActivity extends Activity {
     @Override
     public Resources getResources() {
         return super.getResources();
+    }
+
+    public void bezier(View view) {
+        startActivity(new Intent(this, BezierActivity.class));
     }
 }

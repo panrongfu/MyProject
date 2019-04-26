@@ -129,6 +129,11 @@
              android:onClick="clickDynamic"
              android:layout_height="wrap_content"
              android:text="Dynamic" />
+         <Button
+             android:onClick="bezier"
+             android:text="bezier"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
      </LinearLayout>
  </ScrollView>
 </LinearLayout>
