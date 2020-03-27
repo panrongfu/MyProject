@@ -1,5 +1,9 @@
 package com.project.pan.myproject.dagger2;
 
+import android.util.Log;
+
+import com.project.pan.myproject.dagger2.qualifier.Name;
+
 import javax.inject.Inject;
 
 /**
@@ -11,11 +15,8 @@ import javax.inject.Inject;
 public class Person {
 
     private String name;
-    private Hobby mHobby;
-
     @Inject
-    public Person(Hobby hobby) {
-        this.mHobby = hobby;
+    public Person() {
     }
 
     public String getName() {

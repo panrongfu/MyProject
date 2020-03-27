@@ -37,7 +37,7 @@ dependencies {
     api 'com.android.support.test:runner:1.0.2'
     api 'com.android.support.test.espresso:espresso-core:3.0.2'
     // Support库
-    api rootProject.ext.supportLibs
+    api (rootProject.ext.supportLibs)
     // retrofit
     api rootProject.ext.networkLibs
     //rxJava
@@ -49,7 +49,9 @@ dependencies {
     //nineoldandroids
     api rootProject.ext.nineoldandroids
     //lottie动画框架
-    api rootProject.ext.lottie
+//    api (rootProject.ext.lottie) {
+//        exclude module: 'support-v4'
+//    }
     //volley 网络请求框架
     api rootProject.ext.volley
     //rxCache, disklrucache

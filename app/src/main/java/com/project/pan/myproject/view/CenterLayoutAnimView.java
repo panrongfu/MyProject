@@ -15,7 +15,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.VideoView;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.project.pan.myproject.R;
 
