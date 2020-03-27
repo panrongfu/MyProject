@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/color_black"
+    android:layout_height="wrap_content">
+
+    <VideoView
+        android:layout_gravity="center"
+        android:id="@+id/videoView"
+        android:layout_width="570dp"
+        android:layout_height="570dp" />
+
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/jie_ti_frame_iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/jie_ti_frame" />
+    
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/nei_quan_layer"
+        android:layout_width="253dp"
+        android:src="@drawable/neixuanquan"
+        android:layout_height="253dp" />
+    
+    <ImageView
+        android:layout_gravity="center"
+        android:layout_width="450dp"
+        android:src="@drawable/jingzhiquan"
+        android:layout_height="450dp" />
+
+    <ImageView
+        android:id="@+id/xuan_zhuan_iv"
+        android:layout_gravity="center"
+        android:layout_width="362dp"
+        android:src="@drawable/xuanzhuanquan"
+        android:layout_height="362dp" />
+</FrameLayout>

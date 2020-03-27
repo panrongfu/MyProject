@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#666666">
+
+    <com.project.pan.myproject.view.radarView.RadarView
+        android:id="@+id/radarView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:vertex_icon_margin="0dp"
+        app:vertex_icon_position="top"
+        app:vertex_icon_size="0dp"
+        app:vertex_line_color="#99FFFFFF"
+        app:layer_line_color="#99FFFFFF"
+        app:vertex_text_color="#FFFFFF"
+        app:vertex_text_offset="15dp" />
+</RelativeLayout>

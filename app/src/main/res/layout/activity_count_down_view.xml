@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.CountDownViewActivity">
+
+    <com.project.pan.myproject.view.countdown.CountDownCircleProgressBar
+        android:id="@+id/CountDownCircleProgressBar"
+        android:layout_width="70dp"
+        android:background="@android:color/background_dark"
+        app:outsideCircleColor="@color/color_blue"
+        app:outsideCircleWidth="5.5dp"
+        app:insideCircleWidth="4dp"
+        app:centerTextSize="18sp"
+        app:insideBottomCircleColor="@color/color_gray"
+        app:insideTopCircleColor="@color/color_orange"
+        app:centerTextColor="@color/color_white"
+        android:layout_height="70dp" />
+
+</android.support.constraint.ConstraintLayout>

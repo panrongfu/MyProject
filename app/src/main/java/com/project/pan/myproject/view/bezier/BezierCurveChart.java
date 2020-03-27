@@ -18,6 +18,8 @@ import android.view.View;
 
 public class BezierCurveChart extends View {
 
+    private float lineSmoothness = 0.2f;
+
     public static class Point {
         //根据时间坐标x进行点的排序
         public static final Comparator<Point> X_COMPARATOR = new Comparator<Point>() {
@@ -52,7 +54,6 @@ public class BezierCurveChart extends View {
     private Point[] adjustedPoints;
     private Paint borderPaint = new Paint();
     private Paint chartBgPaint = new Paint();
-    // The rect of chart, x bottomLabels on the bottom are not included
     private Rect chartRect = new Rect();
     private Paint curvePaint = new Paint();
     private Path curvePath = new Path();
@@ -63,10 +64,8 @@ public class BezierCurveChart extends View {
     private Paint labelPaint = new Paint();
     private String[] bottomLabels;
     private String[] leftLables;
-    private float maxY;
 
     private List<Point> originalList;
-    private float scaleY;
     private Rect textBounds = new Rect();
     private Paint tipLinePaint = new Paint();
     private Paint tipPaint = new Paint();
@@ -91,6 +90,7 @@ public class BezierCurveChart extends View {
         borderPaint.setStrokeCap(Paint.Cap.SQUARE);
         borderPaint.setStrokeWidth(4.0f);
         borderPaint.setAntiAlias(true);
+
         //曲线画笔
         curvePaint.setStyle(Paint.Style.STROKE);
         curvePaint.setStrokeCap(Paint.Cap.ROUND);
@@ -136,7 +136,7 @@ public class BezierCurveChart extends View {
         tipTextPaint.setTextSize(21f);
         tipTextPaint.setAntiAlias(true);
 
-        //底部文字画笔
+        //标签文字画笔
         labelPaint.setColor(Color.BLACK);
         labelPaint.setTextSize(21f);
         labelPaint.setAntiAlias(true);
@@ -146,7 +146,7 @@ public class BezierCurveChart extends View {
         this.leftLables = leftLables;
         this.tipText = tipText;
         adjustedPoints = new Point[originalList.size()];
-        // order by x coodinate ascending
+
         Collections.sort(originalList, Point.X_COMPARATOR);
         super.invalidate();
     }
@@ -158,37 +158,30 @@ public class BezierCurveChart extends View {
         getDrawingRect(chartRect);
 
         Log.d(TAG, chartRect.toString());
+        Log.d("left>>", chartRect.left+"");
 
         if (originalList != null) {
-            // mockPoints(width, height);
-            drawBottomLabels(canvas);
             drawLeftBales(canvas);
+            drawBottomLabels(canvas);
+
             int chartHeight = chartRect.bottom - chartRect.top;
             int chartWidth = chartRect.right - chartRect.left;
-
             adjustPoints(chartWidth, chartHeight);
-
             drawGrid(canvas, chartWidth);
             drawCurve(canvas, chartWidth, chartHeight);
-
             if (tipText != null) {
                 drawTip(canvas, chartWidth, chartHeight);
             }
             canvas.drawRect(chartRect, borderPaint);
         }
     }
-    
-    private void adjustPoints(int chartWidth, int chartHeight) {
-        maxY = 0;
-        // find max y coodinate
-        for (Point p : originalList) {
-            if (p.y > maxY) {
-                maxY = p.y;
-            }
-        }
 
-        //Y coodinate sacle
-        scaleY = chartHeight / maxY;
+    /**
+     * 根据每个点的值，计算在屏幕中按比例计算，具体显示的位置
+     * @param chartWidth
+     * @param chartHeight
+     */
+    private void adjustPoints(int chartWidth, int chartHeight) {
         //轴线跨度 终点和起点直接的跨度
         float horizontalAxesSpan = originalList.get(originalList.size() - 1).x - originalList.get(0).x;
         //跨度0-100
@@ -197,20 +190,18 @@ public class BezierCurveChart extends View {
         float startX = originalList.get(0).x;
         //第一个点的y坐标
         float startY = originalList.get(0).y;
-        Log.e("adjustPoints","scaleY:"+scaleY +"horizontalAxesSpan:"+horizontalAxesSpan+"startX:"+startX+"startY:"+startY);
 
         //new String[]{"糟糕","差","一般","良","优"}
         //new int[] {20,40,60,70,80}
         for (int i = 0; i < originalList.size(); i++) {
             Point p = originalList.get(i);
-
             Point newPoint = new Point();
             //p.x - startX => 第i个点距离0点所占的跨度
             //chartWidth / axesSpan => 每个跨度在屏幕中所占的宽度
             //(p.x - startX) * chartWidth / axesSpan + chartRect.left => 第i个点的x坐标
             newPoint.x = (p.x - startX) * chartWidth / horizontalAxesSpan + chartRect.left;
             //第i个点的y跨度 * 每个跨度在屏幕显示的高度 + chartRect距离顶部的距离= 第i个点所在的y坐标
-            newPoint.y = p.y * chartHeight / verticalAxesSpan + chartRect.top;
+            newPoint.y = chartRect.bottom - p.y * chartHeight / verticalAxesSpan;
             //newPoint.y = chartHeight - newPoint.y;
             Log.e("p.y",p.y+"");
             adjustedPoints[i] = newPoint;
@@ -230,14 +221,99 @@ public class BezierCurveChart extends View {
         for (int i = 0; i < adjustedPoints.length - 1; i++) {
             float pointX = (adjustedPoints[i].x + adjustedPoints[i + 1].x) / 2;
             float pointY = (adjustedPoints[i].y + adjustedPoints[i + 1].y) / 2;
-
+            Log.e("pointX",adjustedPoints[i].x+adjustedPoints[i + 1].x+"pointX-aver"+(adjustedPoints[i].x + adjustedPoints[i + 1].x) / 2);
+            Log.e("pointY",adjustedPoints[i].y+adjustedPoints[i + 1].y+"+pointY-aver"+(adjustedPoints[i].y + adjustedPoints[i + 1].y) / 2);
             float controlX = adjustedPoints[i].x;
             float controlY = adjustedPoints[i].y;
-
             path.quadTo(controlX, controlY, pointX, pointY);
         }
-        path.quadTo(adjustedPoints[pointSize - 1].x, adjustedPoints[pointSize - 1].y, adjustedPoints[pointSize - 1].x,
-                adjustedPoints[pointSize - 1].y);
+        path.quadTo(adjustedPoints[pointSize - 1].x, adjustedPoints[pointSize - 1].y, adjustedPoints[pointSize - 1].x, adjustedPoints[pointSize - 1].y);
+    }
+
+    private void buildPath2(Path path) {
+        float prePreviousPointX = Float.NaN;
+        float prePreviousPointY = Float.NaN;
+        float previousPointX = Float.NaN;
+        float previousPointY = Float.NaN;
+        float currentPointX = Float.NaN;
+        float currentPointY = Float.NaN;
+        float nextPointX;
+        float nextPointY;
+
+        int lineSize = adjustedPoints.length;
+
+        for (int valueIndex = 0; valueIndex < lineSize; ++valueIndex ) {
+            if (Float.isNaN(currentPointX)) {
+                Point point = adjustedPoints[valueIndex];
+                currentPointX = point.x;
+                currentPointY = point.y;
+            }
+
+            if (Float.isNaN(previousPointX)) {
+                //是否是第一个点
+                if (valueIndex > 0) {
+                    Point point = adjustedPoints[valueIndex-1];
+                    previousPointX = point.x;
+                    previousPointY = point.y;
+                } else {
+                    //是的话就用当前点表示上一个点
+                    previousPointX = currentPointX;
+                    previousPointY = currentPointY;
+                }
+            }
+
+            if (Float.isNaN(prePreviousPointX)) {
+                //是否是前两个点
+                if (valueIndex > 1) {
+                    Point point = adjustedPoints[valueIndex-2];
+                    prePreviousPointX = point.x;
+                    prePreviousPointY = point.y;
+                } else {
+                    //是的话就用当前点表示上上个点
+                    prePreviousPointX = previousPointX;
+                    prePreviousPointY = previousPointY;
+                }
+            }
+
+            // 判断是不是最后一个点了
+            if (valueIndex < lineSize - 1) {
+                Point point = adjustedPoints[valueIndex + 1];
+                nextPointX = point.x;
+                nextPointY = point.y;
+            } else {
+                //是的话就用当前点表示下一个点
+                nextPointX = currentPointX;
+                nextPointY = currentPointY;
+            }
+
+            if (valueIndex == 0) {
+                // 将Path移动到开始点
+                path.moveTo(currentPointX, currentPointY);
+                //mAssistPath.moveTo(currentPointX, currentPointY);
+            } else {
+                // 求出控制点坐标
+                final float firstDiffX = (currentPointX - prePreviousPointX);
+                final float firstDiffY = (currentPointY - prePreviousPointY);
+                final float secondDiffX = (nextPointX - previousPointX);
+                final float secondDiffY = (nextPointY - previousPointY);
+                final float firstControlPointX = previousPointX + (lineSmoothness * firstDiffX);
+                final float firstControlPointY = previousPointY + (lineSmoothness * firstDiffY);
+                final float secondControlPointX = currentPointX - (lineSmoothness * secondDiffX);
+                final float secondControlPointY = currentPointY - (lineSmoothness * secondDiffY);
+                //画出曲线
+                path.cubicTo(firstControlPointX, firstControlPointY, secondControlPointX, secondControlPointY, currentPointX, currentPointY);
+            }
+
+            // 更新值,
+            prePreviousPointX = previousPointX;
+            prePreviousPointY = previousPointY;
+            previousPointX = currentPointX;
+            previousPointY = currentPointY;
+            currentPointX = nextPointX;
+            currentPointY = nextPointY;
+
+        }
+
     }
 
     /**
@@ -247,12 +323,12 @@ public class BezierCurveChart extends View {
      * @param height
      */
     private void drawCurve(Canvas canvas, float width, float height) {
-        buildPath(curvePath);
-        buildPath(fillPath);
+        buildPath2(curvePath);
+        buildPath2(fillPath);
 
         fillPath.lineTo(chartRect.right, chartRect.bottom);
         fillPath.lineTo(chartRect.left, chartRect.bottom);
-        fillPath.lineTo(chartRect.left, adjustedPoints[0].y);
+        //fillPath.lineTo(chartRect.left, adjustedPoints[0].y);
         fillPath.close();
 
         canvas.drawPath(fillPath, fillPaint);
@@ -290,6 +366,7 @@ public class BezierCurveChart extends View {
      * @param canvas
      */
     private void drawBottomLabels(Canvas canvas) {
+        Log.e("left",chartRect.left+"");
         //获取控件的宽度
         int width = chartRect.right - chartRect.left;
         //label 坐标y
@@ -300,11 +377,11 @@ public class BezierCurveChart extends View {
         for (int i = 0; i < bottomLabels.length; i++) {
             String s = bottomLabels[i];
             //第i个的起始位置x
-            float centerX = chartRect.left + part * i;
+            float centerX = chartRect.left + part * i ;
             float labelWidth = getTextWidth(labelPaint, s);
             float labelX;
             if (i == 0) {
-                labelX = chartRect.left;
+                labelX = centerX ;
             } else if (i == bottomLabels.length - 1) {
                 //为了文字不被挡住，x值需要偏移整个文字的宽度
                 labelX = chartRect.right - labelWidth;
@@ -312,10 +389,12 @@ public class BezierCurveChart extends View {
                 //为了文字居中，需要向左便宜文字宽度的一半
                 labelX = centerX - labelWidth / 2;
             }
-            labelX += getTextWidth(labelPaint,findMaxLength(leftLables))/2;
+          //  labelX += getTextWidth(labelPaint,findMaxLength(leftLables))/2;
             canvas.drawText(s, labelX, labelY, labelPaint);
         }
         //这里主要是让label有显示的空间
+        Log.e("getTextHeight",getTextHeight(labelPaint)+"");
+        Log.e("hartRect.bottom",chartRect.bottom+"");
         chartRect.bottom = (int) (chartRect.bottom - getTextHeight(labelPaint) * 1.2);
     }
 

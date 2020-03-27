@@ -40,4 +40,82 @@
         <attr name="outCircleEndColor" format="color"/>
         <attr name="progressTextSize" format="dimension"/>
     </declare-styleable>
+
+
+    <declare-styleable name="BaseRatingBar">
+        <attr name="srb_numStars" format="integer" />
+        <attr name="srb_minimumStars" format="float" />
+        <attr name="srb_rating" format="float" />
+        <attr name="srb_starPadding" format="dimension" />
+        <attr name="srb_drawableEmpty" format="reference" />
+        <attr name="srb_drawableFilled" format="reference" />
+        <attr name="srb_isIndicator" format="boolean" />
+        <attr name="srb_scrollable" format="boolean" />
+        <attr name="srb_clickable" format="boolean" />
+        <attr name="srb_clearRatingEnabled" format="boolean" />
+        <attr name="srb_starWidth" format="dimension" />
+        <attr name="srb_starHeight" format="dimension" />
+        <attr name="srb_stepSize" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="CountDownCircleProgressBar">
+        <attr name="outsideCircleWidth" format="dimension"/>
+        <attr name="insideCircleWidth" format="dimension"/>
+        <attr name="outsideCircleColor" format="color"/>
+        <attr name="insideBottomCircleColor" format="color"/>
+        <attr name="insideTopCircleColor" format="color"/>
+        <attr name="centerTextColor" format="color"/>
+        <attr name="centerTextSize" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="HoleView">
+        <attr name="holeSize" format="dimension"/>
+        <attr name="border" format="dimension"/>
+        <attr name="borderColor" format="color"/>
+        <attr name="roundRect" format="boolean"/>
+        <attr name="roundRadius" format="dimension"/>
+        <attr name="bgColor" format="color"/>
+    </declare-styleable>
+
+    <!--<declare-styleable name="HoleLayout">-->
+        <!--<attr name="holeSize" format="dimension"/>-->
+        <!--<attr name="border" format="dimension"/>-->
+        <!--<attr name="borderColor" format="color"/>-->
+        <!--<attr name="roundRect" format="boolean"/>-->
+        <!--<attr name="roundRadius" format="dimension"/>-->
+        <!--<attr name="bgColor" format="color"/>-->
+        <!--<attr name="targetRes" format="reference"/>-->
+    <!--</declare-styleable>-->
+
+    <declare-styleable name="RadarView">
+        <attr name="radar_layer" format="integer" />
+        <attr name="rotation_enable" format="boolean" />
+        <attr name="web_mode" format="enum">
+            <enum name="polygon" value="1" />
+            <enum name="circle" value="2" />
+        </attr>
+        <attr name="max_value" format="float" />
+
+        <attr name="vertex_line_color" format="color" />
+        <attr name="vertex_line_width" format="dimension" />
+        <attr name="layer_line_color" format="color" />
+        <attr name="layer_line_width" format="dimension" />
+        <attr name="vertex_text_color" format="color" />
+        <attr name="vertex_text_size" format="dimension" />
+        <attr name="vertex_icon_size" format="dimension" />
+        <attr name="vertex_icon_position" format="enum">
+            <enum name="left" value="1" />
+            <enum name="right" value="2" />
+            <enum name="top" value="3" />
+            <enum name="bottom" value="4" />
+            <enum name="center" value="5" />
+        </attr>
+        <attr name="vertex_icon_margin" format="dimension" />
+        <attr name="center_text_color" format="color" />
+        <attr name="center_text_size" format="dimension" />
+        <attr name="vertex_text_offset" format="dimension" />
+
+        <attr name="center_text" format="string" />
+        <attr name="vertex_text" format="reference" />
+    </declare-styleable>
 </resources>  

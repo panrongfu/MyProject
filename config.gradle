@@ -1,8 +1,8 @@
 ext{
 
     android = [
-            compileSdkVersion: 27,
-            buildToolsVersion: "27.0.3",
+            compileSdkVersion: 28,
+            buildToolsVersion: "28.0.3",
             minSdkVersion    : 19,
             targetSdkVersion : 27,
             versionCode      : 6,
@@ -19,7 +19,7 @@ ext{
             constraint              : "1.1.3",
             loggingInterceptor      : "3.4.1",
             nineoldandroids         : "2.4.0",
-            lottie                  : "2.6.0-beta19",
+            lottie                  : "3.0.6",
             volley                  : "1.1.1",
             disklrucache            : "2.0.2",
             rxCache                 : "1.8.3-2.x",

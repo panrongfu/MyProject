@@ -134,6 +134,29 @@
              android:text="bezier"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content" />
+
+         <Button
+             android:onClick="countdowncircle"
+             android:text="圆圈倒计时"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+         <Button
+             android:onClick="holeView"
+             android:text="洞洞"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+
+         <Button
+             android:onClick="radarView"
+             android:text="雷达图"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+
+         <Button
+             android:onClick="BatteryView"
+             android:text="自定义电池"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"/>
      </LinearLayout>
  </ScrollView>
 </LinearLayout>

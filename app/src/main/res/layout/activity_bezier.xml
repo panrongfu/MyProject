@@ -9,7 +9,7 @@
 
     <com.project.pan.myproject.view.bezier.BezierView
         android:layout_width="100dp"
-        android:layout_height="100dp" />
+        android:layout_height="10dp" />
 
 
     <com.project.pan.myproject.view.bezier.BezierCurveChart
@@ -17,5 +17,40 @@
         android:layout_width="match_parent"
         android:layout_height="260dp"
         android:layout_margin="10dp" />
+
+    <com.project.pan.myproject.view.toothbrushChart.ToothBrushRecordsChart
+        android:id="@+id/toothbrush_chart"
+        android:layout_width="match_parent"
+        android:layout_height="184dp"
+        android:layerType="software"
+        android:layout_margin="10dp" />
+
+    <com.project.pan.myproject.view.ratingBar.BaseRatingBar
+        android:id="@+id/baseratingbar_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
+        app:srb_starWidth="33dp"
+        app:srb_starHeight="18dp"
+        app:srb_starPadding="5dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:gravity="center"
+        app:srb_drawableEmpty="@drawable/empty_bg"
+        app:srb_drawableFilled="@drawable/diligemt_full_bg"
+        app:srb_numStars="5"
+        app:srb_rating="2.5"/>
+
+    <!--
+        app:srb_drawableEmpty="@drawable/empty_shape"
+        app:srb_drawableFilled="@drawable/diligent_full_shape"
+    -->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:onClick="ratingClick"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

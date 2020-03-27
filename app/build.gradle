@@ -99,7 +99,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':jnisdk')
     implementation project(':common')
-    implementation project(':kotlin')
+    // implementation project(':kotlin')
     implementation rootProject.ext.dagger
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     annotationProcessor(rootProject.ext.daggerCompiler)

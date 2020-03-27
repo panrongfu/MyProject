@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true" >
+    <item android:drawable="@drawable/jietixian_00048" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00049" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00050" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00051" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00052" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00053" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00054" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00055" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00056" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00057" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00058" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00059" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00060" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00061" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00062" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00063" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00064" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00065" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00066" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00067" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00068" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00069" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00070" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00071" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00072" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00073" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00074" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00075" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00076" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00077" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00078" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00079" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00080" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00081" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00082" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00083" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00084" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00085" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00086" android:duration="25" />
+    <item android:drawable="@drawable/jietixian_00087" android:duration="25" />
+
+
+</animation-list>

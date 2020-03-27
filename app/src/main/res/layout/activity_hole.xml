@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/color_black"
+    android:layout_gravity="center"
+    android:layout_height="match_parent">
+
+
+    <!--<ImageView-->
+        <!--android:layout_gravity="center"-->
+        <!--android:src="@color/colorPrimaryDark"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="200dp" />-->
+
+    <!--<com.project.pan.myproject.view.custom.HoleView-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_width="200dp"-->
+        <!--app:holeSize="100dp"-->
+        <!--app:bgColor="#ff000000"-->
+        <!--app:border="2dp"-->
+        <!--app:roundRect="false"-->
+        <!--app:roundRadius="4dp"-->
+        <!--app:borderColor="@android:color/holo_green_dark"-->
+        <!--android:layout_height="200dp" />-->
+
+
+    <!--<com.project.pan.myproject.view.CenterLayoutAnimView-->
+        <!--android:id="@+id/center_view"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_layer_name"
+        android:layout_width="200dp"
+        android:layout_gravity="center"
+        android:layout_height="200dp" />
+</FrameLayout>
