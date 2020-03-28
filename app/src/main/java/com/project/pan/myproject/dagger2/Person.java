@@ -2,8 +2,6 @@ package com.project.pan.myproject.dagger2;
 
 import android.util.Log;
 
-import com.project.pan.myproject.dagger2.qualifier.Name;
-
 import javax.inject.Inject;
 
 /**
@@ -16,7 +14,9 @@ public class Person {
 
     private String name;
     @Inject
-    public Person() {
+    public Person(Favor favor, Favor2 favor2) {
+       Log.e("person Favor", favor.name);
+        Log.e("person Favor2", favor2.name);
     }
 
     public String getName() {

@@ -15,9 +15,9 @@ public class DaggerActivity extends AppCompatActivity {
 
     @Inject
     Person person;
-    @Name("hobby2")
-    @Inject
-    Hobby mHobby;
+//    @Name("hobby2")
+//    @Inject
+//    Hobby mHobby;
     AppComponent mAppComponent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class DaggerActivity extends AppCompatActivity {
         DaggerMyComponent.builder().appComponent(mAppComponent).build().inject(this);
 
         person.setName("hello dagger");
-        mHobby.playBall();
+       // mHobby.playBall();
         Toast.makeText(this, person.getName(),Toast.LENGTH_LONG).show();
 
 
