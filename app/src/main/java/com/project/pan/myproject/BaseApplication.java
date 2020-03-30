@@ -19,16 +19,10 @@ import com.project.pan.myproject.dagger2.di.module.AppModule;
 
 public class BaseApplication extends Application {
 
-   static AppComponent appComponent;
     @Override
     public void onCreate() {
         super.onCreate();
-        appComponent = DaggerAppComponent
-                .builder()
-                .appModule(new AppModule())
-                .build();
-
-        appComponent.inject(this);
+        DaggerAppComponent.builder().application(this).build().inject(this);
         //这里是为了应用设置异常处理，然后程序才能获取到未处理的异常
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(this);
@@ -36,10 +30,6 @@ public class BaseApplication extends Application {
         ARouter.openLog();
         ARouter.openDebug();
         ARouter.init(this);
-    }
-
-    public AppComponent getAppComponent(){
-        return appComponent;
     }
 
     @Override

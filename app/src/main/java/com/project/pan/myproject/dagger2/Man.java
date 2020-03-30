@@ -1,5 +1,7 @@
 package com.project.pan.myproject.dagger2;
 
+import android.util.Log;
+
 import com.project.pan.myproject.dagger2.di.component.DaggerManComponent;
 import com.project.pan.myproject.dagger2.di.component.ManComponent;
 
@@ -11,10 +13,9 @@ import javax.inject.Inject;
  * @Description: java类作用描述
  */
 public class Man {
-    @Inject
-    Car mCar;
 
-    public Man() {
-        DaggerManComponent.create().inject(this);
+    @Inject
+    public Man(Car car) {
+        car.go();
     }
 }

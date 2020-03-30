@@ -6,16 +6,15 @@ import javax.inject.Inject;
 
 /**
  * @Author: panrongfu
- * @CreateDate: 2020/3/27 10:05
+ * @CreateDate: 2020/3/30 09:18
  * @Description: java类作用描述
  */
-public class Car {
+public class Bike {
 
-    public Car() {
-
+    public Bike() {
     }
 
     public void go(){
-        Log.e("Car","gogogogogogo");
+        Log.e("Bike","gogogogogogo");
     }
 }

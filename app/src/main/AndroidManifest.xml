@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.project.pan.myproject">
 
+    <permission
+        android:name="com.project.pan.myproject.permission.ACCESS_BOOK_SERVER"
+        android:protectionLevel="normal" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".BaseApplication"
         android:allowBackup="true"
@@ -13,9 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.BatteryActivity"></activity>
+        <activity android:name=".dagger2.SecondDagger2Activity"></activity>
+        <activity android:name=".view.BatteryActivity" />
         <activity android:name=".view.BezierActivity" />
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +30,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".onTouchEvent.OnTouchEventActivity" />
-
         <activity android:name=".onTouchEvent.OnTouchEventActivity2" />
         <activity android:name=".observer.ObserverActivity" />
         <activity android:name=".dagger2.DaggerActivity" />
@@ -37,25 +42,17 @@
         <activity android:name=".designMode.DesignModeActivity" />
         <activity android:name=".classLoader.ClassLoaderActivity" />
         <activity android:name=".view.animation.AnimationActivity" />
-
         <activity android:name=".ipc.IpcActivity" />
-
         <activity android:name=".requestFramework.RequestActivity" />
         <activity android:name=".view.animation.EvaluatorActivity" />
-
         <activity android:name=".window.WindowActivity" />
-
         <activity android:name=".message.MassgeActivity" />
-
         <activity android:name=".thread.ThreadActivity" />
         <activity
             android:name=".cache.MainCacheActivity"
             android:hardwareAccelerated="true" />
-
         <activity android:name=".dynamic.DynamicActivity" />
-
         <activity android:name=".jni.JniActivity" />
-
         <activity android:name=".dispatch.DispatchActivity" />
         <activity android:name=".dispatch.DispatchActivity2" />
         <activity android:name=".notify.NotifyActivity" />
@@ -64,11 +61,13 @@
         <activity android:name=".view.HoleActivity" />
         <activity android:name=".view.RadarActivity" />
         <activity android:name=".cvte.RemoteActivity" />
+
         <provider
             android:name=".ipc.provider.BookProvider"
             android:authorities="com.project.pan.myproject.book.provider"
             android:permission="com.project.pan.myproject.BookProvider"
             android:process=":provider" />
+
         <service
             android:name=".ipc.TestService"
             android:enabled="true"
@@ -91,22 +90,14 @@
             android:name=".ipc.MessengerService"
             android:enabled="true"
             android:exported="true" />
-
         <service
             android:name=".ipc.socket.TcpServerService"
             android:enabled="true"
             android:exported="true" />
-
         <service
             android:name=".cvte.RemoteAddService"
             android:enabled="true"
             android:exported="true" />
     </application>
-
-    <permission
-        android:name="com.project.pan.myproject.permission.ACCESS_BOOK_SERVER"
-        android:protectionLevel="normal" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

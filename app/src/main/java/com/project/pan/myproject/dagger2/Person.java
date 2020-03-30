@@ -14,9 +14,10 @@ public class Person {
 
     private String name;
     @Inject
-    public Person(Favor favor, Favor2 favor2) {
+    public Person(Favor favor, Favor2 favor2, AppTools appTools) {
        Log.e("person Favor", favor.name);
         Log.e("person Favor2", favor2.name);
+        appTools.showTools();
     }
 
     public String getName() {

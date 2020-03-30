@@ -17,4 +17,5 @@ public class Favor2 {
     public Favor2( @YourString String name) {
         this.name = name;
     }
+
 }
