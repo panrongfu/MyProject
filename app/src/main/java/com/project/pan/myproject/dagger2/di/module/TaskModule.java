@@ -1,25 +1,23 @@
 package com.project.pan.myproject.dagger2.di.module;
 
-import com.project.pan.myproject.dagger2.Bike;
-import com.project.pan.myproject.dagger2.Car;
+import android.content.Context;
+
+import com.project.pan.myproject.dagger2.TaskUtil;
 import com.project.pan.myproject.dagger2.di.component.SonComponent;
-import com.project.pan.myproject.dagger2.scope.ManScope;
 
 import dagger.Module;
 import dagger.Provides;
 
 /**
  * @Author: panrongfu
- * @CreateDate: 2020/3/30 09:25
+ * @CreateDate: 2020/3/31 14:25
  * @Description: java类作用描述
  */
-//@Module
 @Module(subcomponents = SonComponent.class)
-public class ManModule {
+public class TaskModule {
 
     @Provides
-    @ManScope
-    Car provideCar() {
-        return new Car();
+    TaskUtil provideTaskUtil(Context context) {
+        return new TaskUtil(context);
     }
 }

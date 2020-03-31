@@ -1,6 +1,8 @@
 package com.project.pan.myproject.dagger2.di.module;
 
 
+import android.app.Application;
+
 import com.project.pan.myproject.dagger2.AppTools;
 
 import dagger.Module;
@@ -16,7 +18,7 @@ import dagger.Provides;
 public class AppModule {
 
     @Provides
-    AppTools provideAppTools(){
-        return new AppTools();
+    AppTools provideAppTools(String name){
+        return new AppTools(name);
     }
 }

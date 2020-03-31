@@ -1,8 +1,10 @@
 package com.project.pan.myproject.dagger2;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import com.project.pan.myproject.BaseApplication;
@@ -24,18 +26,22 @@ public class DaggerActivity extends AppCompatActivity {
 //    @Name("hobby2")
 //    @Inject
 //    Hobby mHobby;
-
-
+    @Inject
+    Application mApplication;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dagger);
-        AppComponent mAppComponent = DaggerAppComponent.builder().build();
-        DaggerMyComponent.builder().appComponent(mAppComponent).build().inject(this);
+        AppComponent appComponent = BaseApplication.getAppComponent();
+        DaggerMyComponent.builder().appComponent(appComponent).build().inject(this);
 
         person.setName("hello dagger");
        // mHobby.playBall();
         Toast.makeText(this, person.getName(),Toast.LENGTH_LONG).show();
+
+        if (mApplication != null) {
+            Log.e("DaggerActivity","application is not null");
+        }
     }
 
     public void secondClick(View view) {

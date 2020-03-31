@@ -1,13 +1,9 @@
 package com.project.pan.myproject.dagger2.di.component;
 
-import android.app.Activity;
 import android.app.Application;
-
 
 import com.project.pan.myproject.dagger2.AppTools;
 import com.project.pan.myproject.dagger2.di.module.AppModule;
-
-import javax.annotation.Nullable;
 
 import dagger.BindsInstance;
 import dagger.Component;
@@ -20,12 +16,14 @@ import dagger.Component;
 @Component(modules = {AppModule.class})
 public interface AppComponent {
     AppTools getAppTools();
-    void inject(Application application); //注入生命周期中
+    Application getApplication();
 
     @Component.Builder
     interface Builder{
         @BindsInstance
-        Builder application(@Nullable Application application);
+        Builder name(String name);
+        @BindsInstance
+        Builder application(Application application);
         AppComponent build();
     }
 }

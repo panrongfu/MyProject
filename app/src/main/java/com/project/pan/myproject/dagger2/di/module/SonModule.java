@@ -3,6 +3,7 @@ package com.project.pan.myproject.dagger2.di.module;
 import com.project.pan.myproject.dagger2.Bike;
 import com.project.pan.myproject.dagger2.Car;
 import com.project.pan.myproject.dagger2.di.component.SonComponent;
+import com.project.pan.myproject.dagger2.scope.SonScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -17,6 +18,7 @@ import dagger.Provides;
 public class SonModule {
 
     @Provides
+    @SonScope
     Bike provideCar(){
         return new Bike();
     }
