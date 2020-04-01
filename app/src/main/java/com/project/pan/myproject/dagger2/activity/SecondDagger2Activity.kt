@@ -21,7 +21,7 @@ class SecondDagger2Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second_dagger2)
-        var manComponent = BaseApplication.getManComponent();
+        var manComponent = BaseApplication.getFatherComponent();
         manComponent.sonComponent().build().inject(this)
         bike.go()
         car.go()

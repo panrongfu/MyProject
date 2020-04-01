@@ -21,11 +21,11 @@ import com.project.pan.myproject.dagger2.di.component.FatherComponent;
 public class BaseApplication extends Application {
 
     private  static AppComponent appComponent;
-    private static FatherComponent manComponent;
+    private static FatherComponent fatherComponent;
     @Override
     public void onCreate() {
         super.onCreate();
-        manComponent = DaggerManComponent.builder().context(this.getApplicationContext()).build();
+        fatherComponent = DaggerManComponent.builder().context(this.getApplicationContext()).build();
         appComponent = DaggerAppComponent.builder()
                 .name("aaa")
                 .application(this)
@@ -49,8 +49,8 @@ public class BaseApplication extends Application {
         return appComponent;
     }
 
-    public static FatherComponent getManComponent(){
-        return manComponent;
+    public static FatherComponent getFatherComponent(){
+        return fatherComponent;
     }
 
 }

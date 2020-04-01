@@ -15,7 +15,7 @@ import dagger.Provides;
  */
 //@Module
 @Module(subcomponents = SonComponent.class)
-public class ManModule {
+public class FatherModule {
 
     @Provides
     @ManScope
