@@ -115,7 +115,9 @@ ext{
 
     dagger = "com.google.dagger:dagger:$dependVersion.dagger"
     daggerCompiler = "com.google.dagger:dagger-compiler:$dependVersion.dagger"
-
+    daggerAndroid = "com.google.dagger:dagger-android:$dependVersion.dagger"
+    daggerAndroidSupport  = "com.google.dagger:dagger-android-support:$dependVersion.dagger"
+    daggerAnnotationProcessor =  "com.google.dagger:dagger-android-processor:$dependVersion.dagger"
     eventbus = "org.greenrobot:eventbus:$dependVersion.eventbus"
 
     supportLibs = supportDeps.values()

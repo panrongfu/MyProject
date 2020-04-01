@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -103,10 +104,14 @@ dependencies {
     implementation project(':common')
     // implementation project(':kotlin')
     implementation rootProject.ext.dagger
+    implementation rootProject.ext.daggerAndroid
+    implementation rootProject.ext.daggerAndroidSupport
+    kapt rootProject.ext.daggerAnnotationProcessor
+
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:support-v4:28.0.0'
-    annotationProcessor(rootProject.ext.daggerCompiler)
+    kapt rootProject.ext.daggerCompiler
     annotationProcessor(rootProject.ext.arouterCompiler) {
         exclude module: 'support-v4'
     }

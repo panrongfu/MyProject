@@ -3,12 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent">
 
     <Button
+        android:layout_margin="20dp"
         android:id="@+id/button29"
-        android:layout_width="139dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:onClick="secondClick"
         android:text="SecondActivity" />
+
+    <Button
+        android:layout_margin="20dp"
+        android:id="@+id/daggerAndroid"
+        android:layout_width="139dp"
+        android:layout_height="80dp"
+        android:onClick="daggerAndroid"
+        android:text="SupportActivity" />
 </LinearLayout>

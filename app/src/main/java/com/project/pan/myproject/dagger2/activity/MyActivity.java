@@ -42,4 +42,8 @@ public class MyActivity extends AppCompatActivity {
     public void secondClick(View view) {
         startActivity(new Intent(this, SecondDagger2Activity.class));
     }
+
+    public void daggerAndroid(View view) {
+        startActivity(new Intent(this,SupportActivity.class));
+    }
 }

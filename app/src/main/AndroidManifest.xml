@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".dagger2.activity.SecondDagger2Activity"></activity>
+        <activity android:name=".dagger2.activity.SupportActivity"></activity>
+        <activity android:name=".dagger2.activity.SecondDagger2Activity" />
         <activity android:name=".view.BatteryActivity" />
         <activity android:name=".view.BezierActivity" />
         <activity android:name=".MainActivity">
