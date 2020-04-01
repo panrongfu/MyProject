@@ -1,12 +1,9 @@
 package com.project.pan.myproject.dagger2.di.component;
 
-import com.project.pan.myproject.dagger2.SecondDagger2Activity;
-import com.project.pan.myproject.dagger2.Son;
-import com.project.pan.myproject.dagger2.di.module.ManModule;
+import com.project.pan.myproject.dagger2.activity.SecondDagger2Activity;
 import com.project.pan.myproject.dagger2.di.module.SonModule;
 import com.project.pan.myproject.dagger2.scope.SonScope;
 
-import dagger.Component;
 import dagger.Subcomponent;
 
 /**

@@ -2,11 +2,7 @@ package com.project.pan.myproject.dagger2.di.component;
 
 import android.content.Context;
 
-import com.project.pan.myproject.dagger2.Car;
-import com.project.pan.myproject.dagger2.Man;
-import com.project.pan.myproject.dagger2.SecondDagger2Activity;
 import com.project.pan.myproject.dagger2.di.module.ManModule;
-import com.project.pan.myproject.dagger2.di.module.SonModule;
 import com.project.pan.myproject.dagger2.di.module.TaskModule;
 import com.project.pan.myproject.dagger2.scope.ManScope;
 

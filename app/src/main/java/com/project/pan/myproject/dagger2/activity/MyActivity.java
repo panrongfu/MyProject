@@ -1,4 +1,4 @@
-package com.project.pan.myproject.dagger2;
+package com.project.pan.myproject.dagger2.activity;
 
 import android.app.Application;
 import android.content.Intent;
@@ -9,17 +9,12 @@ import android.view.View;
 import android.widget.Toast;
 import com.project.pan.myproject.BaseApplication;
 import com.project.pan.myproject.R;
+import com.project.pan.myproject.dagger2.Person;
 import com.project.pan.myproject.dagger2.di.component.AppComponent;
-import com.project.pan.myproject.dagger2.di.component.DaggerAppComponent;
-import com.project.pan.myproject.dagger2.di.component.DaggerManComponent;
 import com.project.pan.myproject.dagger2.di.component.DaggerMyComponent;
-import com.project.pan.myproject.dagger2.di.component.ManComponent;
-import com.project.pan.myproject.dagger2.di.component.SonComponent;
-import com.project.pan.myproject.dagger2.di.module.MyModule;
-import com.project.pan.myproject.dagger2.qualifier.Name;
 
 import javax.inject.Inject;
-public class DaggerActivity extends AppCompatActivity {
+public class MyActivity extends AppCompatActivity {
 
     @Inject
     Person person;
@@ -45,6 +40,6 @@ public class DaggerActivity extends AppCompatActivity {
     }
 
     public void secondClick(View view) {
-        startActivity(new Intent(this,SecondDagger2Activity.class));
+        startActivity(new Intent(this, SecondDagger2Activity.class));
     }
 }

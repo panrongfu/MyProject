@@ -1,6 +1,6 @@
 package com.project.pan.myproject.dagger2.di.component;
 
-import com.project.pan.myproject.dagger2.DaggerActivity;
+import com.project.pan.myproject.dagger2.activity.MyActivity;
 import com.project.pan.myproject.dagger2.di.module.MyModule;
 import dagger.Component;
 
@@ -12,5 +12,5 @@ import dagger.Component;
 @Component(modules =  {MyModule.class}, dependencies = {AppComponent.class})
 public interface MyComponent {
 
-    void inject(DaggerActivity daggerActivity);
+    void inject(MyActivity daggerActivity);
 }

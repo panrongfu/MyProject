@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".dagger2.SecondDagger2Activity"></activity>
+        <activity android:name=".dagger2.activity.SecondDagger2Activity"></activity>
         <activity android:name=".view.BatteryActivity" />
         <activity android:name=".view.BezierActivity" />
         <activity android:name=".MainActivity">
@@ -32,7 +32,7 @@
         <activity android:name=".onTouchEvent.OnTouchEventActivity" />
         <activity android:name=".onTouchEvent.OnTouchEventActivity2" />
         <activity android:name=".observer.ObserverActivity" />
-        <activity android:name=".dagger2.DaggerActivity" />
+        <activity android:name=".dagger2.activity.MyActivity" />
         <activity android:name=".view.ViewStubActivity" />
         <activity android:name=".view.custom.CustomViewActivity" />
         <activity

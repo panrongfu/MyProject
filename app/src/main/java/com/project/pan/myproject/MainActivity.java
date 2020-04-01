@@ -15,10 +15,9 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.google.gson.Gson;
 import com.project.pan.common.global.ARouterPaths;
 import com.project.pan.myproject.cache.MainCacheActivity;
-import com.project.pan.myproject.dagger2.DaggerActivity;
+import com.project.pan.myproject.dagger2.activity.MyActivity;
 import com.project.pan.myproject.designMode.DesignModeActivity;
 import com.project.pan.myproject.dispatch.DispatchActivity;
 import com.project.pan.myproject.dispatch.DispatchActivity2;
@@ -75,7 +74,7 @@ public class MainActivity extends Activity {
     }
 
     public void clickDagger(View view){
-        startActivity(new Intent(this, DaggerActivity.class));
+        startActivity(new Intent(this, MyActivity.class));
     }
 
     public void clickViewStub(View view){
