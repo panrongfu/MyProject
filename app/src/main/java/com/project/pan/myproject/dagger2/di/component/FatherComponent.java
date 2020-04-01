@@ -16,7 +16,7 @@ import dagger.Component;
  */
 @ManScope
 @Component(modules = {ManModule.class , TaskModule.class})
-public interface ManComponent {
+public interface FatherComponent {
     // 继承关系中不用显式地提供暴露依赖实例的接口
 //    Car offCar();
     SonComponent.Builder sonComponent();
@@ -25,6 +25,6 @@ public interface ManComponent {
     interface Builder {
         @BindsInstance
         Builder context(Context context);
-        ManComponent build();
+        FatherComponent build();
     }
 }

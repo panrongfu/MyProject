@@ -9,8 +9,7 @@ import com.project.pan.myproject.crash.CrashHandler;
 import com.project.pan.myproject.dagger2.di.component.AppComponent;
 import com.project.pan.myproject.dagger2.di.component.DaggerAppComponent;
 import com.project.pan.myproject.dagger2.di.component.DaggerManComponent;
-import com.project.pan.myproject.dagger2.di.component.ManComponent;
-import com.project.pan.myproject.dagger2.di.module.AppModule;
+import com.project.pan.myproject.dagger2.di.component.FatherComponent;
 
 
 /**
@@ -22,7 +21,7 @@ import com.project.pan.myproject.dagger2.di.module.AppModule;
 public class BaseApplication extends Application {
 
     private  static AppComponent appComponent;
-    private static ManComponent manComponent;
+    private static FatherComponent manComponent;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -50,7 +49,7 @@ public class BaseApplication extends Application {
         return appComponent;
     }
 
-    public static ManComponent getManComponent(){
+    public static FatherComponent getManComponent(){
         return manComponent;
     }
 
