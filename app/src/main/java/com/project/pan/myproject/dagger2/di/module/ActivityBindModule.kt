@@ -1,13 +1,12 @@
 package com.project.pan.myproject.dagger2.di.module
 
-import android.app.Activity
+import android.support.v7.app.AppCompatActivity
 import com.project.pan.myproject.dagger2.activity.SupportActivity
-import com.project.pan.myproject.dagger2.scope.ActivityScope
+import com.project.pan.myproject.dagger2.di.component.SupportActivitySubComponent
 import dagger.Binds
 import dagger.Module
-import dagger.android.ActivityKey
 import dagger.android.AndroidInjector
-import dagger.android.ContributesAndroidInjector
+import dagger.multibindings.ClassKey
 import dagger.multibindings.IntoMap
 
 
@@ -16,15 +15,16 @@ import dagger.multibindings.IntoMap
  * @CreateDate: 2020/4/1 13:59
  * @Description: java类作用描述
  */
-@Module
-abstract class ActivityBindModule {
+@Module(subcomponents = [SupportActivitySubComponent::class])
+//@Module
+ public abstract class ActivityBindModule {
 
-//    @Binds
-//    @IntoMap
-//    @ActivityKey(SupportActivity::class)
-//    abstract fun bindAndroidInjectorFactory(builder: SupportActivityComponent.Builder): AndroidInjector.Factory<out Activity>
+    @Binds
+    @IntoMap
+    @ClassKey(SupportActivity::class)
+    internal abstract fun bindAndroidInjectorFactory(builder: SupportActivitySubComponent.Builder): AndroidInjector.Factory<*>
 
-    @ActivityScope
-    @ContributesAndroidInjector(modules = [SupportModule::class])
-    abstract fun supportActivityInjector(): SupportActivity
+//    @ActivityScope3.20-*
+//    @ContributesAndroidInjector(modules = [SupportModule::class])
+//    abstract fun supportActivityInjector(): SupportActivity
 }

@@ -6,28 +6,22 @@ import android.os.Bundle
 import android.support.test.internal.runner.RunnerArgs
 import com.project.pan.myproject.R
 import com.project.pan.myproject.dagger2.Bike
+import com.project.pan.myproject.dagger2.Move
+import com.project.pan.myproject.dagger2.TomHobby
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import javax.inject.Inject
 
-class SupportActivity : AppCompatActivity(),HasActivityInjector {
+class SupportActivity : BaseActivity() {
 
-    @Inject
-    lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Activity>
-    @Inject
-    lateinit var bike: Bike
-
+//    @Inject lateinit var bike: Bike
+//    @Inject lateinit var hobby: TomHobby;
+    @Inject lateinit var move: Move
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_support)
-        AndroidInjection.inject(this)
-        bike.go()
+      //  bike.go()
     }
-
-    override fun activityInjector(): AndroidInjector<Activity> {
-       return dispatchingActivityInjector
-    }
-
 }

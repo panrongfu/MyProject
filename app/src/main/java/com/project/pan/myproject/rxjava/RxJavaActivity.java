@@ -11,16 +11,25 @@ import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
 
+/**
+ * rxjava
+ * @Link https://blog.csdn.net/z69183787/article/details/90675373
+ */
 public class RxJavaActivity extends RxAppCompatActivity {
 
     @Override
@@ -88,6 +97,24 @@ public class RxJavaActivity extends RxAppCompatActivity {
         gamedaily.addObserver(user3);
 
         gamedaily.postNewArticle("新文章来了");
+
+        Observable.just(1,2,3,4)
+                .map(input -> input + "and")
+                .subscribe(output-> System.out.println("output:" +output));
+
+        //PublishSubject:
+        //
+        //    与普通的Subject不同，在订阅时并不立即触发订阅事件，而是允许我们在任意时刻手动调用onNext,onError(),onCompleted来触发事件。
+        PublishSubject publishSubject = PublishSubject.create();
+
+        publishSubject.subscribe(new Consumer() {
+            @Override
+            public void accept(Object o) throws Exception {
+                System.out.println("publishSubject:"+o);
+            }
+        });
+
+        publishSubject.onNext("11232323");
 
     }
 }

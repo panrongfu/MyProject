@@ -1,7 +1,6 @@
 package com.project.pan.myproject.dagger2.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import com.project.pan.myproject.BaseApplication
 import com.project.pan.myproject.R
 import com.project.pan.myproject.dagger2.Bike
@@ -9,7 +8,7 @@ import com.project.pan.myproject.dagger2.Car
 import com.project.pan.myproject.dagger2.TaskUtil
 import javax.inject.Inject
 
-class SecondDagger2Activity : AppCompatActivity() {
+class SecondDagger2Activity : BaseActivity() {
 
     @Inject
     lateinit var car: Car

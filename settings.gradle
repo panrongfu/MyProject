@@ -1,1 +1,1 @@
-include ':app', ':jnisdk', ':common', ':myapplication'
+include ':app', ':jnisdk', ':common'

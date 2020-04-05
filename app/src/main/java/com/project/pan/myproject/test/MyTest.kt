@@ -1,5 +1,8 @@
 package com.project.pan.myproject.test
 
+import io.reactivex.Observable
+import io.reactivex.Observer
+
 
 /**
  * @Author: panrongfu
@@ -20,14 +23,12 @@ class MyTest {
             }
             println(">>> $result1")
             println(">>> $result2")
-
         }
 
         private fun resultByOpt(num : Int, funSum : (Int) -> Int) :Int {
             return funSum(num)
         }
         private fun resultByOpt2(num1 : Int, num2:Int, funSum : (Int,Int) -> Int) :Int {
-
             return funSum(num1,num2)
         }
     }
